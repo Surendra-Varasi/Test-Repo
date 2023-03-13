@@ -1,0 +1,29 @@
+<template>
+    <!-- <div class="slds-m-around_medium">
+        <h1 class="slds-text-heading_small">Multiple Markers</h1>
+        <p class="slds-text-body_regular">Multiple markers are displayed on the map. Map is centered on geometric mean of markers and zoom is calculated automatically to fit all markers in viewport.</p>
+    </div> -->
+    <lightning-layout multiple-rows="true">
+        <lightning-layout-item size="8">
+            <lightning-map
+                map-markers={mapMarkers}
+                markers-title={markersTitle}
+                onmarkerselect={handleMarkerSelect}
+                selected-marker-value={selectedMarkerValue} 
+                list-view="visible" >
+            </lightning-map>
+        </lightning-layout-item>
+        <lightning-layout-item size="4">
+            <div class={showDetails}>
+                <p class="slds-text-heading_medium slds-text-title_bold">Selected Value is {selectedMarkerValue}</p>
+                <div class="slds-modal__content slds-p-around_medium">
+                        <lightning-datatable 
+                        data={newDetailData} 
+                        columns={cols} 
+                        key-field="Id"
+                        hide-checkbox-column="true" ></lightning-datatable>
+                </div>
+            </div>
+        </lightning-layout-item>
+    </lightning-layout>
+</template>

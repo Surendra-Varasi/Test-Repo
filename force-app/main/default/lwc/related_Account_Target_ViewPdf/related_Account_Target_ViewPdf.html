@@ -1,0 +1,66 @@
+<template>
+    <header class="slds-modal__header">
+        <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+            <lightning-icon icon-name="utility:close"
+                alternative-text="close"
+                variant="inverse"
+                size="small" ></lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+        </button>
+        <h2 id="modal-heading-02" class="slds-text-heading_medium slds-hyphenate">Attached Documents</h2>
+    </header>
+    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+       <table>
+        <template for:each={documentIds} for:item="doc">
+            <tr key={doc.Id}>
+                <td><span key={doc.ContentDocumentId}>{doc.ContentDocument.Title}.{doc.ContentDocument.FileType}</span></td>
+                <td></td>
+                <td><lightning-button class="slds-m-bottom_small" key={doc.ContentDocumentId} id={doc.ContentDocumentId}  onclick={toNavigate} label="View File"></lightning-button></td>
+                <td><lightning-button class="slds-m-bottom_small" key={doc.ContentDocumentId} id={doc.ContentDocumentId}  onclick={toDelete} label="Delete File"></lightning-button></td>
+            </tr>
+            <tr key={doc.Id}></tr>
+       </template>
+       <template for:each={businessReviewDocumentIds} for:item="doc">
+        <tr key={doc.Id}>
+            <td><span key={doc.ContentDocumentId}>{doc.ContentDocument.Title}.{doc.ContentDocument.FileType}</span></td>
+            <td></td>
+            <td><lightning-button class="slds-m-bottom_small" key={doc.ContentDocumentId} id={doc.ContentDocumentId}  onclick={toNavigate} label="View File"></lightning-button></td>
+            <td><lightning-button class="slds-m-bottom_small" key={doc.ContentDocumentId} id={doc.ContentDocumentId}  onclick={toDelete} label="Delete File"></lightning-button></td>
+        </tr>
+        <tr key={doc.Id}></tr>
+   </template>
+       </table>
+       <br/>
+       <br/>
+       <template if:true={showUrl}>
+           <b>File Url's :-</b>
+           <table>
+               <template for:each={disFiles} for:item="file">
+                   <p key={file}>
+                       <lightning-formatted-url value={file} tooltip={file} target="_blank"></lightning-formatted-url>
+                   </p>
+               </template>
+           </table>
+       </template>
+       <template if:true={showUrl1}>
+        <b>File Url's :-</b>
+        <table>
+            <template for:each={businessReviewDisFiles} for:item="file">
+                <p key={file}>
+                    <lightning-formatted-url value={file} tooltip={file} target="_blank"></lightning-formatted-url>
+                </p>
+            </template>
+        </table>
+    </template>
+    </div>
+    <footer class="slds-modal__footer">
+        <div class="slds-clearfix">
+            <div class="slds-float_right slds-grid">
+                <div class="slds-m-right_xxx-small slds-col">
+                    <lightning-button class="slds-m-top_small" variant="brand" type="cancel" name="cancel" onclick={closeModal} label="Close">
+                    </lightning-button>
+                </div>
+            </div>
+        </div>
+    </footer>
+</template>

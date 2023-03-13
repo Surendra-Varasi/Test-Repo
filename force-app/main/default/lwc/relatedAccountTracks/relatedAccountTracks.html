@@ -1,0 +1,226 @@
+<template>
+    <!-- <div class=" slds-card slds-card_boundary ">
+       
+        <lightning-card> 
+            <header slot="title" class="slds-page-header slds-page-header_record-home">
+                <lightning-icon icon-name="standard:channel_program_history" ></lightning-icon>
+                <strong class="slds-m-left--x-small">Programs</strong>
+            </header>
+            <lightning-datatable data={tracks} columns={columnns} key-field="trackId"></lightning-datatable>
+        </lightning-card>
+    </div>    -->
+
+    <div class=" slds-card slds-card_boundary ">
+        <lightning-card title="">
+            <lightning-button-icon title="Refresh" icon-name="utility:refresh" slot="actions" onclick={refreshPage}> </lightning-button-icon>
+            <lightning-button label="New Initiative" onclick={newProg} slot="actions"></lightning-button>
+            <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                <template for:each={data} for:item="rec">
+                    <lightning-accordion-section key={rec.programId} name={rec.programName} label={rec.programNameNumber}>
+                        <lightning-button-menu slot="actions"
+                                    alternative-text="Show menu"
+                                    icon-size="x-small"
+                                    menu-alignment="right">
+                            <lightning-menu-item id={rec.programId} value="New" label="Create New Track" onclick={createNewTrack}></lightning-menu-item>
+                            <lightning-menu-item id={rec.programId} value="Edit" label="View Initiative" onclick={navigateToProgram}></lightning-menu-item>
+                        </lightning-button-menu>
+                        <template for:each={rec.trackItems} for:item="con">
+                            <div key={con.trackId} class="slds-box slds-theme_shade slds-m-bottom_medium">
+                                <div class="slds-box">
+                                    <lightning-card title={con.trackName}>
+                                        <lightning-button variant="base" class="slds-p-around_medium" icon-name="utility:preview" id={con.trackId} label="View Track" onclick={toNavigate} slot="actions"></lightning-button>
+                                        <lightning-button variant="base" class="slds-p-around_medium" icon-name="utility:add" id={con.trackId} label="Add New Milestone" onclick={createNewMilestone} slot="actions"></lightning-button>        
+                                    </lightning-card>
+                                    <lightning-record-view-form record-id={con.trackId} object-api-name="varasi_am__Program_Track__c">
+                                        <div class="slds-grid slds-gutters">
+                                            <div class="slds-col slds-size_1-of-2">
+                                            <lightning-output-field field-name="varasi_am__Start_Date__c"></lightning-output-field>
+                                            </div>
+                                            <div class="slds-col slds-size_1-of-2">
+                                                <lightning-output-field field-name="varasi_am__End_Date__c"></lightning-output-field>
+                                            </div>
+                                        </div>
+                                    </lightning-record-view-form>
+                                    <!-- <lightning-record-view-form record-id={track.programId} object-api-name="varasi_am__Program__c">
+                                        <lightning-output-field field-name="varasi_am__Program_Description__c">
+                                        </lightning-output-field>
+                                    </lightning-record-view-form> -->
+                                </div>
+                                <!-- <c-view-track key={con.trackId} record-id={con.trackId}></c-view-track> -->
+                                <template if:true={con.milestonesAchieved}>
+                                    <div class="slds-m-top_medium slds-align_absolute-center">
+                                        <b>All Milestone Achieved</b>
+                                    </div>
+                                </template>
+                                <template if:false={con.milestonesAchieved}>
+                                    <template for:each={con.trackMiltestoneItems} for:item="track">
+                                        <div key={track.trackId}> 
+                                            <br key={track.trackId} />
+                                            <lightning-progress-indicator current-step={track.currentStep} key={track.trackId} type="path"
+                                                variant="base">
+                                                <template for:each={track.milestoneItems} for:item="m">
+                                                    <lightning-progress-step label={m.milestoneName} id={m.milestoneId} onclick={handleClick}
+                                                        value={m.milestoneName} key={m.milestoneId}></lightning-progress-step>
+                                                </template>
+                                            </lightning-progress-indicator>
+                                            <div key={track.trackId} class="slds-modal__content slds-p-around_medium">
+                                                <template for:each={track.milestoneItems} for:item="item">
+                                                    <div key={item.milestoneId} class={item.showDetailClass}>
+                                                        <div class="slds-grid slds-gutters">
+                                                            <div class="slds-col slds-size_6-of-12">
+                                                                <div class="slds-grid slds-gutters">
+                                                                    <div class="slds-col slds-size_3-of-12">
+                                                                    <b>Milestone</b>
+                                                                    </div>
+                                                                    <div class="slds-col slds-size_1-of-12">
+                                                                        <b>:</b>
+                                                                        
+                                                                    </div>
+                                                                    <div class="slds-col slds-size_8-of-12">
+                                                                        {item.milestoneName}
+                                                                    </div>
+                                                                    
+                                                                </div>
+                                                            </div>
+                                                            <!-- <lightning-button label="Mark Milestone as Achieved" id={item.milestoneId} icon-name="utility:success" onclick={handlemarkAchieved}></lightning-button> -->
+                                                            <div class="slds-col slds-size_6-of-12">
+                                                                <lightning-button label="Mark Milestone as Achieved" id={item.milestoneId} icon-name="utility:success" onclick={handlemarkAchieved}></lightning-button>
+                                                            </div>
+                                                        </div>
+                                                        <div class="slds-grid slds-gutters">
+                                                            <div class="slds-col slds-size_6-of-12">
+                                                                <div class="slds-grid slds-gutters">
+                                                                    <div class="slds-col slds-size_3-of-12">
+                                                                    <b>Actual Date</b>
+                                                                    </div>
+                                                                    <div class="slds-col slds-size_1-of-12">
+                                                                        <b>:</b>
+                                                                    </div>
+                                                                    <div class="slds-col slds-size_8-of-12">
+                                                                        {item.actualDate}
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="slds-col slds-size_6-of-12"></div>
+                                                        </div>
+                                                    </div>
+                                                </template>
+                                            </div>
+                                            <!-- </div> -->
+                                        </div>
+                                        <br key={track.trackId} />
+                                    </template>
+                                </template>
+                            </div>
+                        </template>
+                        <!-- <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                            <thead>
+                                <tr class="slds-line-height_reset">
+                                    
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Track Name">Track Name</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Start Date">Start Date</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Sponsor">Sponsor</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="slds-truncate" title="Current Milestone">Current Milestone</div>
+                                    </th>
+                                    <th class="" scope="col">
+                                        <div class="alignCenter slds-truncate" title="Milestone Progress">Milestone Progress</div>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={rec.trackItems} for:item="con">
+                                    <tr key={con.Id}>
+                                        <th scope="col">
+                                            <div><a id={con.trackId} onclick={toNavigate}>{con.programName}</a></div>
+                                        </th>
+                                        <th scope="col">
+                                            <div>{con.startDate}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div>{con.sponsor}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div>{con.currentStep}</div>
+                                        </th>
+                                        <th scope="col">
+                                            <div class="alignCenter">
+                                                <lightning-progress-ring value={con.milestonesComplete} variant={con.variant}> </lightning-progress-ring>
+                                            </div>
+                                        </th>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table> -->
+                    </lightning-accordion-section>
+                </template>
+            </lightning-accordion>
+            
+        </lightning-card>
+    </div>
+
+
+
+    <template if:true={addNewTrack}>
+        <div class="slds-box slds-theme_shade">
+            <div class="slds-modal slds-fade-in-open slds-backdrop">
+                <lightning-record-edit-form object-api-name="varasi_am__Program_Track__c" onsuccess={handleTrackSuccess}>
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <lightning-button-icon icon-name="utility:close" alternative-text="Close this window" size="large" variant="bare-inverse" onclick={closeModalNewTrack} class="slds-modal__close" ></lightning-button-icon>
+                            <h2>Add Track Details</h2>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <!-- <lightning-messages>
+                                </lightning-messages> -->
+                                <lightning-input-field field-name="varasi_am__Program__c" value={programId} disabled></lightning-input-field>
+                                <lightning-input-field field-name="Name"></lightning-input-field>
+                                <lightning-input-field field-name="varasi_am__Start_Date__c"></lightning-input-field>
+                                <lightning-input-field field-name="varasi_am__End_Date__c" ></lightning-input-field>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <button class="slds-button slds-button_neutral" onclick={closeModalNewTrack} title="Cancel" > Cancel</button>
+                            <button class="slds-button slds-button_brand"  type="submit" title="Save"> Save</button>
+                        </div>
+                    </div>
+                </lightning-record-edit-form>
+            </div>
+        </div>
+    </template>
+
+    <template if:true={addNewMilestone}>
+        <div class="slds-box slds-theme_shade">
+            <div class="slds-modal slds-fade-in-open slds-backdrop">
+                <lightning-record-edit-form object-api-name="varasi_am__Track_Milestone__c" onsuccess={handleSuccess}>
+                    <div class="slds-modal__container">
+                        <div class="slds-modal__header">
+                            <lightning-button-icon icon-name="utility:close" alternative-text="Close this window" size="large" variant="bare-inverse" onclick={closeModalNewTrack} class="slds-modal__close" ></lightning-button-icon>
+                            <h2>Add Track Details</h2>
+                        </div>
+                        <div class="slds-modal__content slds-p-around_medium">
+                            <!-- <lightning-messages>
+                                </lightning-messages> -->
+                               
+                                <lightning-input-field field-name="Name"></lightning-input-field>
+                                <lightning-input-field field-name="varasi_am__Target_Milestone_Date__c"></lightning-input-field>
+                                <lightning-input-field field-name="varasi_am__Actual_Milestone_Date__c" ></lightning-input-field>
+                                <lightning-input-field field-name="varasi_am__Milestone_Achieved__c" ></lightning-input-field>
+                                <lightning-input-field field-name="varasi_am__Program_Track__c" value={trackId} disabled></lightning-input-field>
+                        </div>
+                        <div class="slds-modal__footer">
+                            <button class="slds-button slds-button_neutral" onclick={closeModalNewTrack} title="Cancel" > Cancel</button>
+                            <button class="slds-button slds-button_brand"  type="submit" title="Save"> Save</button>
+                        </div>
+                    </div>
+                </lightning-record-edit-form>
+            </div>
+        </div>
+    </template>
+
+</template>

@@ -1,0 +1,8 @@
+<aura:component implements="lightning:actionOverride,lightning:isUrlAddressable,flexipage:availableForAllPageTypes" access="global">
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <aura:attribute name="accId" type="String"/> 
+    <aura:set attribute="actions">
+            <span class="aura">Aura Component</span>
+    </aura:set>
+    <c:business_Review recordId="{!v.recordId}" oncloseclicked="{!c.handleFilterChange}"></c:business_Review>
+</aura:component>

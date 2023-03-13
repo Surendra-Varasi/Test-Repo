@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Account Recommendation">
+        <template if:true={isVisible}>
+            <c-datatable columns={columns}
+                        records={data}
+                        per-page={perPage}
+                        is-searching-enable={searchingEnable}
+                        onsavedata={handleSaveData}>
+            </c-datatable>
+        </template>
+        <template if:false={isVisible}>
+            No Content to Display!!
+        </template>
+    </lightning-card>
+        
+</template>

@@ -1,0 +1,36 @@
+<template>
+    <lightning-card>
+        <lightning-record-edit-form object-api-name={accountObject}
+                        record-id={recordId}
+                        onsuccess={handleSuccess}>
+                        <lightning-input-field field-name="Name">
+                        </lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Sponsor_Credit__c">
+                        </lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Soft_Credits__c">
+                        </lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Relationship_Type__c" >
+                        </lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Company_Counterpart__c" onchange={handleTypChange} >
+                        </lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Relationship_Score__c">
+                        </lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Company_Counterpart_User__c">
+                        </lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Company_Counterpart_Contact__c" >
+                        </lightning-input-field>
+                        <div class="slds-clearfix">
+                            <div class="slds-float_right slds-grid">
+                                <div class="slds-m-right_xxx-small slds-col">
+                                    <lightning-button class="slds-m-top_small" variant="brand" type="cancel" name="cancel" onclick={handleCancel} label="Cancel">
+                                    </lightning-button>
+                                </div>
+                                <div class="slds-col">
+                                    <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update">
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>  
+                    </lightning-record-edit-form>
+    </lightning-card>
+</template>

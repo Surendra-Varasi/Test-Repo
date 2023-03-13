@@ -1,0 +1,6 @@
+<aura:component implements="lightning:isUrlAddressable,flexipage:availableForAllPageTypes" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <aura:attribute name="accId" type="String"/>
+    <c:new_Account_Health recordId="{!v.accId}" oncloseclicked="{!c.handleFilterChange}"></c:new_Account_Health>
+</aura:component>

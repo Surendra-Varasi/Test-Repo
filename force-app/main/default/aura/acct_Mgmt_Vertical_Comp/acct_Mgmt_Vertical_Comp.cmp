@@ -1,0 +1,14 @@
+<aura:component controller="acct_Mgmt_Controller" implements="force:hasRecordId,flexipage:availableForRecordHome" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <aura:attribute name="configRecs" type="List" default="[]" />
+   
+   <lightning:tabset variant="vertical" onselect="{!c.redirectConfig}" class="abc">
+    <aura:iteration items="{!v.configRecs}" var="rec">
+        <lightning:tab label="{!rec.MasterLabel}" id="{!rec.varasi_am__Component_Name__c}" >
+            <div aura:id="{!rec.varasi_am__Component_Name__c}">
+            	{!rec.varasi_am__Component_Name__c}
+            </div>
+        </lightning:tab>
+    </aura:iteration>
+    </lightning:tabset>
+</aura:component>

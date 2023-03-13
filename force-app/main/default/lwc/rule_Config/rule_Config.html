@@ -1,0 +1,122 @@
+<template>
+  <template if:true={isModalOpen}>
+    <section
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="modal-heading-01"
+      aria-modal="true"
+      aria-describedby="modal-content-id-1"
+      class="slds-modal slds-fade-in-open"
+    >
+      <div class="slds-modal__container">
+        <header class="slds-modal__header">
+          <button
+            class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+            title="Close"
+            onclick={closeModal}
+          >
+            <lightning-icon
+              icon-name="utility:close"
+              alternative-text="close"
+              variant="inverse"
+              size="small"
+            ></lightning-icon>
+            <span class="slds-assistive-text">Close</span>
+          </button>
+          <h2
+            id="modal-heading-01"
+            class="slds-text-heading_medium slds-hyphenate"
+          >
+            Configuration
+          </h2>
+        </header>
+        <div
+          class="slds-modal__content slds-p-around_medium"
+          id="modal-content-id-1"
+        >
+         <!-- <lightning-record-edit-form
+            object-api-name="varasi_am__Account_Insight__mdt"
+            onsuccess={handleSuccess}
+            record-id={recId}
+          > -->
+          <lightning-input type="text" name="config" label="Configuration Value" value={configValue} onchange={changeConfigValue}></lightning-input>
+           <!-- <lightning-input-field field-name="varasi_am__Rule_Config__c">
+            </lightning-input-field> -->
+            <footer class="slds-modal__footer">
+              <div class="slds-clearfix">
+                <div class="slds-float_right slds-grid">
+                  <div class="slds-m-right_xxx-small slds-col">
+                    <lightning-button
+                      class="slds-m-top_small"
+                      variant="brand"
+                      type="cancel"
+                      name="cancel"
+                      onclick={handleCancel}
+                      label="Cancel"
+                    >
+                    </lightning-button>
+                  </div>
+                  <div class="slds-col">
+                    <lightning-button
+                      class="slds-m-top_small"
+                      variant="brand"
+                      type="submit"
+                      onclick={submitInsight}
+                      name="update"
+                      label="Save"
+                    >
+                    </lightning-button>
+                  </div>
+                </div>
+              </div>
+            </footer>
+          <!--</lightning-record-edit-form>-->
+        </div>
+      </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+  </template>
+
+  <lightning-card>
+    <div class="slds-grid slds-wrap">
+      <div class="slds-col slds-size_1-of-6">
+        <span
+          ><lightning-input
+            type="toggle"
+            label="Enable Insights"
+            checked={isSchedule}
+            name="input1"
+            message-toggle-active="Insights are Enabled"
+            message-toggle-inactive="Insights are Disabled"
+            onchange={handleSchedule}
+          ></lightning-input
+        ></span>
+      </div>
+      <div class="slds-col slds-size_4-of-6"></div>
+      <div class="slds-col slds-size_1-of-6">
+        <span
+          ><lightning-button
+            variant="brand"
+            label="Run Insights"
+            onclick={handleClick}
+            class="slds-m-left_x-small"
+          ></lightning-button
+        ></span>
+      </div>
+    </div>
+
+    <template if:true={displayDatatable}>
+      <lightning-datatable
+        key-field="Id"
+        data={rules}
+        columns={cols}
+        hide-checkbox-column="true"
+        show-row-number-column="true"
+        onrowaction={callRowAction}
+      >
+      </lightning-datatable>
+    </template>
+  </lightning-card>
+
+  <!-- <lightning-button variant="success" label="Schedule" onclick={handleSchedule} class="slds-m-left_x-small"></lightning-button> -->
+</template>

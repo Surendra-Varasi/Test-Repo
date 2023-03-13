@@ -1,0 +1,57 @@
+<template>
+    <template for:each={tracks} for:item="track">
+        <div class="slds-text-heading_medium slds-text-title_bold" key={track.trackId}> {track.trackName} </div>
+        <br key={track.trackId} />
+        <div key={track.trackId}>
+            <div class="slds-box">
+                <lightning-record-view-form record-id={track.trackId} object-api-name="varasi_am__Program_Track__c">
+                    <lightning-output-field field-name="varasi_am__Start_Date__c"></lightning-output-field>
+                    <lightning-output-field field-name="varasi_am__End_Date__c"></lightning-output-field>
+                </lightning-record-view-form>
+                <lightning-record-view-form record-id={track.programId} object-api-name="varasi_am__Program__c">
+                    <lightning-output-field field-name="varasi_am__Program_Description__c">
+                    </lightning-output-field>
+                </lightning-record-view-form>
+            </div>
+
+            <br key={track.trackId} />
+            <lightning-progress-indicator current-step={track.currentStep} key={track.trackId} type="path"
+                variant="base">
+                <template for:each={track.milestoneItems} for:item="m">
+                    <lightning-progress-step label={m.milestoneName} id={m.milestoneId} onclick={handleClick}
+                        value={m.milestoneName} key={m.milestoneId}></lightning-progress-step>
+                </template>
+            </lightning-progress-indicator>
+            <!-- <div key={track.trackId} class="slds-modal__content slds-p-around_medium">
+            <template if:true={stepDetails}>
+                <div class={stepClass}>
+                    <p>{stepDetails.milestoneId}</p>
+                    <p>{stepDetails.milestoneName}</p>
+                    <p>{stepDetails.actualDate}</p>
+                </div>
+            </template>
+            </div> -->
+            <div key={track.trackId} class="slds-modal__content slds-p-around_medium">
+                <template for:each={track.milestoneItems} for:item="item">
+                    <div key={item.milestoneId} class={item.showDetailClass}>
+                        <!-- <p>{item.milestoneId}</p> -->
+                        <p>{item.milestoneName}</p>
+                        <p>{item.actualDate}</p>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <br key={track.trackId} />
+    </template>
+</template>
+
+
+<!-- 
+program
+    track1
+        milestones
+            progress indicator
+    track2
+
+    track3
+ -->

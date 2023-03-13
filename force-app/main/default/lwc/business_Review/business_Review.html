@@ -1,0 +1,49 @@
+<template>
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true"
+            aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse"
+                        title="Close" onclick={onCancel}>
+                        <lightning-icon icon-name="utility:close" alternative-text="close" variant="inverse"
+                            size="small"></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Create New Business Review
+                    </h2>
+                </header>
+                <lightning-record-edit-form object-api-name="varasi_am__Business_Review__c" onsuccess={handleSuccess}>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+
+                        <lightning-input-field field-name="Name"></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Account__c" value={recordId} disabled>
+                        </lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Review_Date__c" required></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Bussiness_Review_Assessment__c" required>
+                        </lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Program__c"></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Agenda__c"></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Key_Concerns__c"></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Comments__c"></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Next_Steps__c"></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Customer_Contact_1__c"></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Customer_Contact_2__c"></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Internal_Contact_1__c"></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Internal_Contact_2__c"></lightning-input-field>
+
+                    </div>
+                    <footer class="slds-modal__footer">
+                        <lightning-button variant="neutral" type="cancel" name="cancel" label="Cancel"
+                            onclick={onCancel}></lightning-button>
+                        <lightning-button class="slds-p-left_x-small" variant="brand" type="submit" name="Save"
+                            label="Save" data-name="saveButton" onclick={handleClick}></lightning-button>
+                        <lightning-button class="slds-p-left_x-small" variant="brand" type="submit" name="SaveUpload"
+                            label="Save and Upload Files" data-name="saveUploadButton" onclick={handleClick}>
+                        </lightning-button>
+                    </footer>
+                </lightning-record-edit-form>
+            </div>
+        </section>
+    </template>
+</template>

@@ -1,0 +1,94 @@
+<template>
+    <lightning-card>
+        <lightning-record-edit-form object-api-name="varasi_am__Account_Health_Metrics__c"
+            record-id={recordId}
+            onsubmit={onSubmitHandler}>
+            <lightning-input-field field-name="varasi_am__Account__c">
+            </lightning-input-field>
+            <lightning-input-field field-name="varasi_am__Health_Score_Date__c" read-only="true">
+            </lightning-input-field>
+             <lightning-output-field field-name="varasi_am__Average_Health_Score__c">
+            </lightning-output-field> 
+            <!--<lightning-input type="number" class="slds-m-left_xx-small" name="input1" label="Average" value={averageHealthScore} readonly></lightning-input>-->
+            <table class="slds-table slds-table_cell-buffer">
+                <tbody>
+                    <template for:each={mapData} for:item="config">
+                        <tr key={config.key} class="slds-line-height_reset">
+                            <th scope="col">
+                                <div class="slds-truncate"><b>{config.key}</b></div>
+                            </th>
+                        </tr>
+                        <template for:each={config.value} for:item="configDetail">
+                            <tr key={config.key} class="slds-line-height_reset">
+                                <th>
+                                    <div class="slds-truncate"></div>
+                                </th>
+                                <th>
+                                    <div class="slds-truncate">{configDetail.Name}</div>
+                                </th>
+                                <th>
+                                    <div class="slds-truncate">
+                                        <lightning-radio-group 
+                                            variant="label-hidden"
+                                            options={options}
+                                            value={configDetail.Columnvalue}
+                                            type="button"
+                                            onchange={sliderHandle}
+                                            name={configDetail.ColumnName}>
+                                        </lightning-radio-group>
+                                    </div>
+                                    <!-- <lightning-slider variant="label-hidden" min="0" max="5" value={configDetail.Columnvalue} name={configDetail.ColumnName} onchange={sliderHandle}></lightning-slider> -->
+                                    <!-- <lightning-input-field key={configDetail.varasi_am__Column_Name__c} variant="label-hidden" field-name={configDetail.varasi_am__Column_Name__c}>
+                                    </lightning-input-field> -->
+                            </th>
+                            </tr>
+                        </template>
+                    </template>
+                    
+                </tbody>
+        </table>
+        <lightning-combobox
+               name="con1"
+               value={value}
+               label="Notable Contribution"
+               placeholder="Select Contact"
+               options={conList}
+               onchange={handleChange}
+               >
+        </lightning-combobox>
+        <lightning-combobox
+               name="con2"
+               value={value2}
+               label="Notable Contribution"
+               placeholder="Select Contact"
+               options={conList}
+               onchange={handleChange2}
+               >
+        </lightning-combobox>
+        <lightning-combobox
+               name="con3"
+               value={value3}
+               label="Notable Contribution"
+               placeholder="Select Contact"
+               options={conList}
+               onchange={handleChange3}
+               >
+        </lightning-combobox>
+        <lightning-input-field field-name="varasi_am__Note__c">
+        </lightning-input-field>
+            <div class="slds-clearfix">
+                <div class="slds-float_right slds-grid">
+                    <div class="slds-m-right_xxx-small slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" name="cancel" onclick={handleCancel} label="Cancel">
+                        </lightning-button>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Save">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>  
+        
+    </lightning-record-edit-form> 
+</lightning-card>  
+</template>

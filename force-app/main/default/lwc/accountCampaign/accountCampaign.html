@@ -1,0 +1,7 @@
+<template>
+    <lightning-card title="">
+        <c-reusable-datatable title="Account Campaigns" records={camapignData} columns={cols} new-record-button={newRecordButton} new-record-label="Add Campaign" refresh-button={refreshButton}
+            actions={actions} onselectedaction={handleActions} onrefresh={refreshPage} onnewrec={newRec} search-function={searchFunction} 
+            search-fields={searchFields}></c-reusable-datatable>
+    </lightning-card>            
+</template>

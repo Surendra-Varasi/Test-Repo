@@ -1,0 +1,135 @@
+<template>
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close" name ='Account Health' title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{title}</h2>
+                </header>
+                    <template if:true={isCateg}>
+                        <lightning-record-edit-form object-api-name="varasi_am__Conf_Category__c" onsuccess={handleSuccess}>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <lightning-messages>
+                                </lightning-messages>
+                                <label for="fieldName">Checklist Category Name</label>
+                                <lightning-input-field id="fieldName" field-name="Name" variant="label-hidden">
+                                </lightning-input-field>
+                                <lightning-input-field field-name="varasi_am__Category_Type__c" value="Checklist" class="slds-hidden">
+                                </lightning-input-field>
+                            </div>
+                            <footer class="slds-modal__footer">
+                                <div class="slds-clearfix">
+                                    <div class="slds-float_right slds-grid">
+                                        <div class="slds-m-right_xxx-small slds-col">
+                                            <lightning-button
+                                                class="slds-m-top_small"
+                                                type="submit"
+                                                label="Create new">
+                                            </lightning-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>    
+                        </lightning-record-edit-form>
+                    </template>
+                    <template if:true={isMetric}>
+                        <lightning-record-edit-form object-api-name="varasi_am__Configuration_Category_Detail__c" onsuccess={handleSuccess} onsubmit={handleSubmit}>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-2">
+                                <lightning-messages>
+                                </lightning-messages>
+                                <label for="chkName">Checklist Item</label>
+                                <lightning-input-field id="chkName" field-name="Name" variant="label-hidden">
+                                </lightning-input-field>
+                                <lightning-input-field field-name="varasi_am__Configuration_Category__c" value={checklistTypeId} disabled>
+                                </lightning-input-field>
+                                <lightning-input-field hidden field-name="varasi_am__Column_Name__c" class="slds-hidden" value={columnName}>
+                                </lightning-input-field>
+                            </div>
+                            <footer class="slds-modal__footer">
+                                <div class="slds-clearfix">
+                                    <div class="slds-float_right slds-grid">
+                                        <div class="slds-m-right_xxx-small slds-col">
+                                            <lightning-button
+                                                class="slds-m-top_small"
+                                                type="submit"
+                                                label="Create new">
+                                            </lightning-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </footer>
+                        </lightning-record-edit-form>
+                    </template>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>
+    <template if:true={chklistTreeItems}>
+        <lightning-card >
+            <lightning-button-icon icon-name="utility:add" onclick={handleClick}
+                            slot="actions" name='Checklist'
+                            title="Add new Category" alternative-text="Add new Category"></lightning-button-icon>
+            <!-- <header slot="title" class="slds-page-header slds-page-header_record-home">
+                <lightning-icon icon-name="utility:task" ></lightning-icon>
+                <strong class="slds-m-left--x-small">Checklists</strong>
+            </header> -->
+            <lightning-layout multiple-rows="true">
+                <lightning-tree-grid
+                    columns={columns}
+                    data={chklistTreeItems._children}
+                    key-field = "name"
+                    hide-checkbox-column = true
+                    onrowaction={handleRowAction}
+                ></lightning-tree-grid>
+                <!-- <lightning-layout-item size="6">
+                    <lightning-vertical-navigation onselect={handleBeforeSelect}  >
+                        <lightning-button-icon icon-name="utility:add" onclick={handleClick} class ="slds-float_right slds-m-right_large" name='Checklist' title="Add new Category" alternative-text="Add new Category"></lightning-button-icon>
+                                <lightning-vertical-navigation-section   label='Checklist Type'>
+                                    <template for:each={chklistTreeItems._children} for:item="item1">
+                                        <lightning-vertical-navigation-item-badge key={item1.id} label={item1.name} name={item1.name} badge-count={item1.numOfChildren1}></lightning-vertical-navigation-item-badge>
+                                    </template>
+                                </lightning-vertical-navigation-section>
+                    </lightning-vertical-navigation>
+                </lightning-layout-item>
+                <lightning-layout-item size="6">
+                    <div class="slds">
+                        <table class="slds-table slds-max-medium-table--stacked-horizontal">
+                            <thead>
+                                <tr>
+                                    <th scope="col" class="nobordertop" title="Name">
+                                        <div class="slds-text-heading_small">Checklist Items</div>
+                                    </th>
+                                    <th>
+                                        <lightning-button-icon icon-name="utility:add" class ="slds-float_right slds-m-right_large" title="Add New CheckList Item" alternative-text="Add New CheckList Item"  onclick={addMetric}></lightning-button-icon>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <template for:each={cheklistMetricData} for:item="m">
+                                    <tr class='slds-m-left_xx-large' key={m.id}>
+                                        <td data-label="Name"  title="Name" >
+                                            <div class="slds-grid slds-gutters">
+                                                <div class="slds-col slds-size_2-of-3">
+                                                    {m.metricName}
+                                                </div>
+                                                <div class="slds-col slds-size_1-of-3">
+                                                    <lightning-button-icon icon-name="utility:delete" data-label={m.columnName} data-id={m.id} size="x-small"  alternative-text="Delete Metric" onclick={deleteMetric} class="slds-m-left_xx-small"></lightning-button-icon>
+                                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </template>
+                            </tbody>
+                        </table> 
+                    </div>  
+                </lightning-layout-item> -->
+            </lightning-layout>
+        </lightning-card>
+    </template>
+</template>

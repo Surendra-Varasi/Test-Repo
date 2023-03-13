@@ -1,0 +1,8 @@
+<aura:component implements="forceCommunity:availableForAllPageTypes,force:hasRecordId,flexipage:availableForAllPageTypes" access="global"><!--flexipage:availableForAllPageTypes-->
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <aura:attribute name="accId" type="String"/> 
+    <aura:set attribute="actions">
+            <span class="aura">Aura Component</span>
+    </aura:set>
+    <c:view_Account_Expense recordId="{!v.recordId}" oncloseclicked="{!c.handleFilterChange}"/>
+</aura:component>

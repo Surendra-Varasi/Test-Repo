@@ -1,0 +1,64 @@
+<template>
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">{title}</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    
+                    <lightning-record-edit-form object-api-name={recordObject} onsuccess={handleSuccess} >
+                        <lightning-messages>
+                        </lightning-messages>
+                        <template if:true={isCateg}>
+                            <lightning-input-field field-name="Name" >
+                            </lightning-input-field>
+                            <lightning-input-field field-name="varasi_am__Category_Type__c" value={categoryName}>
+                            </lightning-input-field>
+                        </template>
+                        <template if:true={isMetric}>
+                            <lightning-input-field field-name="Name" >
+                            </lightning-input-field>
+                            <lightning-input-field field-name="varasi_am__Configuration_Category__c" value={categoryId}>
+                            </lightning-input-field>
+                        </template>
+                        <lightning-button
+                            class="slds-m-top_small"
+                            type="submit"
+                            label="Create new">
+                        </lightning-button>
+                    </lightning-record-edit-form>
+                </div>
+            </div>
+        </section>
+    </template>
+     <lightning-card title="Configure Metrics 1" icon-name="action:view_relationship">
+        <div class="slds-var-m-around_medium">
+            <lightning-tree-grid onrowaction={createCategory} data={treeItems} columns={columns} key-field="keyField">
+            </lightning-tree-grid>
+            <!-- <template if:true={categTypes}>
+                <lightning-accordion >
+                <template for:each={categTypes} for:item="dKey">
+                        <lightning-accordion-section  key={dKey} name={dKey} label={dKey}> -->
+                            <!-- <p>{categType}</p> -->
+                            <!-- <lightning-datatable data={dKey.value} columns={columns} key-field="Id">
+                            </lightning-datatable> -->
+                            
+                        <!-- </lightning-accordion-section>
+                </template>
+            </lightning-accordion>
+            </template> -->
+            <template if:true={error}>
+                {error}
+            </template>
+        </div>
+    </lightning-card>
+
+</template>

@@ -1,0 +1,45 @@
+<aura:component
+    implements="flexipage:availableForRecordHome,force:lightningQuickActionWithoutHeader,force:hasRecordId,flexipage:availableForAllPageTypes"
+    access="global">
+    <aura:attribute name="case" type="boolean"/>
+    <aura:attribute name="newCase" type="boolean" default="false"/>
+        <div class="modal-header slds-modal__header">
+            <h2 class="title slds-text-heading--medium">Escalate To Red</h2>
+        </div>
+        <lightning:recordEditForm recordId="{!v.recordId}" onsubmit="{!c.handleOnSubmit}" objectApiName="Account" aura:id="accForm">
+            <div class="slds-modal__content slds-p-around--medium">
+                <lightning:messages />
+                <lightning:inputField fieldName="varasi_am__Is_Red_Account__c" onchange="{!c.changeRed}" />
+            </div>
+
+
+            <aura:if isTrue="{!v.case}">
+                <div class="slds-modal__content slds-p-around--medium">
+                    <lightning:input type="checkbox" label="Create Case" checked="{!v.newCase}"/>
+                </div>
+                <aura:if isTrue="{!v.newCase}">
+                    <lightning:recordEditForm objectApiName="Case" aura:id="caseForm">
+                        <lightning:inputField fieldName="Origin"/>
+                        <lightning:inputField fieldName="Priority" value="High"/>
+                        <lightning:inputField fieldName="Status"/>
+                        <lightning:inputField fieldName="Subject"/>
+                        <lightning:inputField fieldName="Description"/>
+                        <lightning:inputField fieldName="AccountId" value="{!v.recordId}" class="slds-hidden"/>
+                    </lightning:recordEditForm>
+                </aura:if>
+            </aura:if>
+
+            <div class="modal-footer slds-modal__footer">
+                <div class="forceChangeRecordTypeFooter">       
+                    <lightning:button variant="neutral" label="Cancel" onclick="{! c.cancelClick }" />      
+                    <lightning:button variant="brand" type="submit" name="update" label="Update" />
+                </div>
+            </div>
+        </lightning:recordEditForm>
+            <!-- <footer>
+                <div class="modal-footer slds-modal__footer attach-to-bottom">
+                    <lightning:button variant="brand" type="submit" name="update" label="Update" />
+                </div>
+            </footer> -->  
+
+</aura:component>

@@ -1,0 +1,14 @@
+<template>
+    <template if:true={data}>
+        <c-datatable columns={cols}
+                    is-searching-enable={searchingEnable}
+                    records={data}
+                    per-page={perPage}
+                    search-fields={searchFields}
+                    onsavedata={handleSaveData}
+                    is-export-enable={isExportEnable}
+                    is-new-button={isNewButton}
+                    title={title}>
+            </c-datatable>
+    </template>
+</template>

@@ -1,0 +1,14 @@
+<template>
+    <div class=" slds-card slds-card_boundary ">
+        <lightning-card  title="">
+            <lightning-button class="slds-m-right_small" title="Refresh Offerings" label="Check for New Offerings" icon-name="utility:refresh" onclick={refreshOfferings} slot="actions">
+            </lightning-button>
+            <lightning-button-icon title="Refresh" icon-name="utility:refresh" onclick={refreshPage} slot="actions">
+            </lightning-button-icon>
+            <div class="slds-var-m-around_medium">
+                <lightning-tree-grid data={data} columns={cols} key-field="name" onrowaction={handleActions}>
+                </lightning-tree-grid>
+            </div>
+        </lightning-card>
+    </div>
+</template>

@@ -1,0 +1,57 @@
+<template>
+   <lightning-card title={title}>
+      <template if:true={isNewButton}>
+         <lightning-button slot="actions" label="New" onclick={createRecord}></lightning-button>
+      </template>
+      <template if:true={records}>
+         <template if:true={isExportEnable}>
+            <lightning-button slot="actions" label="Export" onclick={exportData}></lightning-button>
+         </template>
+         <div class="container">
+            <lightning-layout multiple-rows="true">
+                  <template if:true={isSearchingEnable}>
+                     <lightning-layout-item size="12" padding="around-medium">
+                        <lightning-input type="search" value={searchKey} onchange={handleKeywordChange}></lightning-input>
+                     </lightning-layout-item>
+                     <lightning-layout-item size="12" padding="around-medium">
+                        <lightning-button variant="success" label="Search" onclick={searchRecords} class="slds-m-left_x-small"></lightning-button>
+                     </lightning-layout-item>
+                  </template> 
+               <lightning-layout-item size="12">
+                  <div class="slds-align_absolute-center">
+                     <lightning-datatable
+                        key-field="Id"
+                        data={currentPageData}
+                        columns={columns}
+                        onsave={handleSave}
+                        hide-checkbox-column="true"
+                        onrowaction={handleRowActions}
+                        draft-values={draftValues}
+                        >
+                     </lightning-datatable>
+                  </div>
+               </lightning-layout-item>
+   
+               <lightning-layout-item size="12" margin="around-small">
+                  <div class="slds-align_absolute-center">
+                     <ul class="slds-button-group-row">
+                        <template if:true={hasPrev}>
+                           <li class="slds-button-group-item" >
+                              <lightning-button-icon title="Previous" icon-name="utility:jump_to_left" onclick={onPrev}>
+                              </lightning-button-icon>
+                           </li>
+                        </template>
+                        <template if:true={hasNext}>
+                           <li class="slds-button-group-item" >
+                              <lightning-button-icon title="Next" icon-name="utility:jump_to_right" onclick={onNext}>
+                              </lightning-button-icon>
+                           </li>
+                        </template>
+                     </ul>
+                  </div>
+               </lightning-layout-item>
+            </lightning-layout>
+      </div>
+      </template>
+   </lightning-card>
+  </template>

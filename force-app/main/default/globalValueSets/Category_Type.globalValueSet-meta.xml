@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalValueSet xmlns="http://soap.sforce.com/2006/04/metadata">
+    <customValue>
+        <fullName>Account Health</fullName>
+        <default>false</default>
+        <label>Account Health</label>
+    </customValue>
+    <customValue>
+        <fullName>Checklist</fullName>
+        <default>false</default>
+        <label>Checklist</label>
+    </customValue>
+    <customValue>
+        <fullName>Company Division</fullName>
+        <default>false</default>
+        <label>Company Division</label>
+    </customValue>
+    <customValue>
+        <fullName>Relationship Type</fullName>
+        <default>false</default>
+        <label>Relationship Type</label>
+    </customValue>
+    <customValue>
+        <fullName>Program Milestone</fullName>
+        <default>false</default>
+        <label>Program Milestone</label>
+    </customValue>
+    <customValue>
+        <fullName>Stakeholder Personality</fullName>
+        <default>false</default>
+        <label>Stakeholder Personality</label>
+    </customValue>
+    <customValue>
+        <fullName>Budget</fullName>
+        <default>false</default>
+        <label>Budget</label>
+    </customValue>
+    <customValue>
+        <fullName>Soft Credit Role</fullName>
+        <default>false</default>
+        <label>Soft Credit Role</label>
+    </customValue>
+    <customValue>
+        <fullName>Target</fullName>
+        <default>false</default>
+        <label>Target</label>
+    </customValue>
+    <customValue>
+        <fullName>Company Offerings</fullName>
+        <default>false</default>
+        <label>Company Offerings</label>
+    </customValue>
+    <customValue>
+        <fullName>Credit</fullName>
+        <default>false</default>
+        <label>Credit</label>
+    </customValue>
+    <customValue>
+        <fullName>Tab Visibility</fullName>
+        <default>false</default>
+        <label>Tab Visibility</label>
+    </customValue>
+    <customValue>
+        <fullName>Account Insight</fullName>
+        <default>false</default>
+        <label>Account Insight</label>
+    </customValue>
+    <customValue>
+        <fullName>Bbbb</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Bbbb</label>
+    </customValue>
+    <customValue>
+        <fullName>Aaaa</fullName>
+        <default>false</default>
+        <isActive>false</isActive>
+        <label>Aaaa</label>
+    </customValue>
+    <description>Category Type Picklist values for Conf_Category_Name Object.</description>
+    <masterLabel>Category Type</masterLabel>
+    <sorted>false</sorted>
+</GlobalValueSet>

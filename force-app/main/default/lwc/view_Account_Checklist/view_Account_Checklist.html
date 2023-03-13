@@ -1,0 +1,139 @@
+<template>
+    <template if:true={addFile}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeAttachment}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="standard"
+                        size="small" aria-hidden="true"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-modal__title slds-hyphenate">Add Attachment</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_large">
+                    <c-varasi-file-uploader record-id={recordId} column-name={colName} ></c-varasi-file-uploader>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeAttachment}>Cancel</button>
+                    <button class="slds-button slds-button_brand" onclick={submitAttachment}>Submit</button>
+                </footer>
+            </div>
+        </section>
+    </template>
+    <template if:true={viewFile}>
+        <section role="dialog" tabindex="-1" class="slds-modal slds-fade-in-open slds-modal_small" aria-labelledby="modal-heading-02" aria-modal="true" aria-describedby="modal-content-id-2">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeAttachment}>
+                        <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="standard"
+                        size="small" aria-hidden="true"></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-02" class="slds-modal__title slds-hyphenate">Attachments</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_large">
+                    <c-varasi-file-downloader record-id={recordId} cdl-ids={contentIds} ></c-varasi-file-downloader>
+                </div>
+                <footer class="slds-modal__footer">
+                    <button class="slds-button slds-button_neutral" onclick={closeAttachment}>Cancel</button>
+                </footer>
+            </div>
+        </section>
+    </template>
+    <lightning-card>
+        <lightning-record-edit-form object-api-name={accountChecklistObject}
+                        record-id={recordId}
+                        onsuccess={handleSuccess} onsubmit={handleSubmit}>
+                        <lightning-input-field field-name="Name">
+                        </lightning-input-field>
+                        <!-- <lightning-input-field field-name="varasi_am__Account__c">
+                        </lightning-input-field> -->
+                        <lightning-input-field field-name="varasi_am__Configuration_Category__c" disabled>
+                        </lightning-input-field>
+                        <table class="slds-table slds-table_cell-buffer slds-table_bordered slds-m-top_large">
+                            <tbody>
+                                <!-- <template for:each={mapData} for:item="checklist">
+                                    <tr key={checklist.varasi_am__Column_Name__c}>
+                                        <th scope="col">{checklist.Name}</th>
+                                        <th scope="col"><lightning-input-field key={checklist.varasi_am__Column_Name__c} variant="label-hidden" field-name={checklist.varasi_am__Column_Name__c} >
+                                        </lightning-input-field></th>
+                                        <th scope="col"><div class="slds-float_right">
+                                            Assign Task To : 
+                                        </div></th>
+                                        <th scope="col"><lightning-input-field key={checklist.varasi_am__Column_Owner__c} variant="label-hidden" field-name={checklist.varasi_am__Column_Owner__c}>
+                                        </lightning-input-field></th>
+                                    </tr>
+                                </template> -->
+                                <tr >
+                                    <th><b>Name</b></th>
+                                    <!-- <th></th> -->
+                                    <th><b>Status</b></th>
+                                    <th><b>Owner</b></th>
+                                    <th><b>Deadline Date</b></th>
+                                    <th><b>Attachment</b></th>
+                                </tr>
+                                <template for:each={mapData} for:item="check">
+                                    <template for:each={check.metrics} for:item="checklist">
+                                        <tr key={checklist.Id}>
+                                            <th scope="col">
+                                                {checklist.name}
+                                            </th>
+                                            <th scope="col" class={checklist.statusColor}>
+                                                <!-- <lightning-input type="checkbox" variant="label-hidden" checked={checklist.isComplete}  data-id={checklist.Id} onchange={isCompChange}></lightning-input> -->
+                                                <lightning-combobox
+                                                    data-id={checklist.Id}
+                                                    value={checklist.isComplete}
+                                                    label="Status"
+                                                    placeholder="Status"
+                                                    options={statuses}
+                                                    onchange={isCompChange}
+                                                    variant="label-hidden">
+                                                </lightning-combobox>
+                                            </th>
+                                            <th scope="col">
+                                                <!-- <lightning-input type="checkbox" variant="label-hidden" value={checklist.assignedUser} data-id={checklist.Id} onchange={isMaxChange}></lightning-input> -->
+                                                <lightning-combobox
+                                                    data-id={checklist.Id}
+                                                    value={checklist.assignedUser}
+                                                    label="Owner"
+                                                    placeholder="Select User"
+                                                    options={Users}
+                                                    onchange={userChange}
+                                                    variant="label-hidden">
+                                                </lightning-combobox>
+                                            </th>
+                                            <th>
+                                                <lightning-input type="date" name="input2" variant="label-hidden" label="Deadline Date" data-id={checklist.Id} value={checklist.deadLineDate} onchange={dateChange}></lightning-input>
+                                            </th>
+                                            <th>
+                                                <!-- <lightning-input label="Comment" value={checklist.comment} data-id={checklist.Id} onchange={commentChange}></lightning-input> -->
+                                                <lightning-button-icon icon-name="utility:add" onclick={addAttachment} name={checklist.colName} title="Add Attachment" alternative-text="Add attachment"></lightning-button-icon>
+                                                <lightning-button-icon icon-name="utility:preview" onclick={viewAttachment} name={checklist.comment} title="View Attachment" class="slds-m-left_medium" alternative-text="Add attachment"></lightning-button-icon>
+                                                <!-- <lightning-button label="Add attachment" name={checklist.colName} onclick={addAttachment}></lightning-button>
+                                                <lightning-button label="Add attachment" name={checklist.comment} onclick={addAttachment} class="slds-m-left_medium"></lightning-button> -->
+                                            </th>
+                                        </tr>
+                                    </template>
+                                </template>
+                                
+                            </tbody>
+                        </table>
+                        <div class="slds-clearfix slds-m-top_large">
+                            <div class="slds-float_right slds-grid">
+                                <div class="slds-m-right_xxx-small slds-col">
+                                    <lightning-button class="slds-m-top_small" variant="brand" name="cancel" onclick={handleCancel} label="Cancel">
+                                    </lightning-button>
+                                </div>
+                                <div class="slds-col">
+                                    <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Update">
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>  
+                    </lightning-record-edit-form>
+    </lightning-card>
+</template>

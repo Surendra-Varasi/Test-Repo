@@ -1,0 +1,18 @@
+<template>
+    <div class="slds-grid">
+        <div class="slds-col slds-size_8-of-12 slds-m-top_xx-small">
+            <lightning-progress-bar value={sVal} size="large"></lightning-progress-bar> 
+        </div>
+        <div class="slds-col slds-size_1-of-12">
+
+        </div>
+        <div class="slds-col slds-size_1-of-12 slds-m-bottom_xx-small">
+            <span><b class={sValDecoration}>
+                <lightning-formatted-number value={scorevalue} format-style="decimal" minimum-fraction-digits="1"></lightning-formatted-number>
+            </b></span>
+        </div>
+    </div>
+    
+   
+
+</template>

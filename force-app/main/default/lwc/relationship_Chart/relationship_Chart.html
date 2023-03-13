@@ -1,0 +1,9 @@
+<template>
+    <lightning-card title="Account Relationships Chart" icon-name="utility:chart">
+        <!-- <lightning-button-icon title="Refresh" icon-name="utility:refresh" slot="actions" onclick={refreshPage}></lightning-button-icon> -->
+        <!--<lightning-button label="New Contact" slot="actions" onclick={newRec}></lightning-button>-->
+        <template if:true={dataInitialized}>
+            <c-chart3 chart-labels={chartLabels} chart-data1={chartDataSCredit} chart-data2={chartDataScore} chart-data3={chartDataSoftCredit} chart-type={chartType} value-label1={valueLabel1} value-label2={valueLabel2} value-label3={valueLabel3} ></c-chart3>
+        </template>
+    </lightning-card>
+</template>

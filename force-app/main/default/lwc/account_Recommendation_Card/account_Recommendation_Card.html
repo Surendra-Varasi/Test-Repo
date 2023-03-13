@@ -1,0 +1,15 @@
+<template>
+    <template if:true={data}>
+        <template for:each={data} for:item="rec">
+            <lightning-card key={rec.Id} title={rec.Name}>
+                
+                <lightning-button id={rec.Id} class="slds-m-top_small" slot="actions" variant="brand" name="cancel" onclick={handleDone} label="Done">
+                </lightning-button>
+                <div class="slds-m-around_medium">
+                    <lightning-formatted-rich-text value={rec.varasi_am__Recommendation__c}>
+                    </lightning-formatted-rich-text>
+                </div>
+            </lightning-card>
+        </template>
+    </template>
+</template>

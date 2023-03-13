@@ -1,0 +1,116 @@
+<template>
+    <lightning-card>
+        <lightning-record-edit-form object-api-name="varasi_am__Account_Goal__c" onsuccess={handleSuccess}
+            record-id={recordId} onsubmit={handleSubmit}>
+            <lightning-input-field field-name="Name">
+            </lightning-input-field>
+            <lightning-input-field field-name="varasi_am__Account__c">
+            </lightning-input-field>
+            <lightning-input-field field-name="varasi_am__Target_Year__c">
+            </lightning-input-field>
+            <table class="slds-table slds-table_cell-buffer">
+                <tbody>
+                    <!--
+                <template for:each={mapData} for:item="config">
+                    <tr key={config.key}>
+                        <th scope="col">{config.key}</th>
+                        <th>
+                        <template for:each={config.value} for:item="configDetail">
+                                <lightning-input-field key={configDetail.varasi_am__Column_Name__c} variant="label-hidden" field-name={configDetail.varasi_am__Column_Name__c}>
+                                </lightning-input-field>
+                    </template>
+                </th>
+                    </tr>
+                    
+                </template>
+                -->
+                    <tr>
+                        <th></th>
+                        <th>Goal Value</th>
+                        <th>is Maximum?</th>
+                        <th>Current Value</th>
+                        
+                        
+
+                    </tr>
+                    <!-- <template for:each={mapData} for:item="config">
+                        <tr key={config.configCat.Id}>
+                            <th scope="col">{config.configCat.Name}</th>
+                            <th>
+                                <lightning-input-field key={config.configCat.varasi_am__Column_Name_3__c}
+                                     variant="label-hidden"
+                                    field-name={config.configCat.varasi_am__Column_Name_3__c}></lightning-input-field>
+                            </th>
+                            <th>
+                                <lightning-input-field key={config.configCat.varasi_am__Column_Name_2__c}
+                                     variant="label-hidden"
+                                    field-name={config.configCat.varasi_am__Column_Name_2__c}></lightning-input-field>
+                            </th>
+                            
+                            <th>
+                                <lightning-input-field key={config.configCat.varasi_am__Column_Name__c} variant="label-hidden"
+                                    field-name={config.configCat.varasi_am__Column_Name__c}>
+                                </lightning-input-field>
+                            </th>
+                            <th>
+                                <lightning-progress-ring value={config.progressTrackerValue} variant={config.variant}> </lightning-progress-ring>
+                            </th>
+
+
+                        </tr>
+                    </template> -->
+                    <template for:each={mapData} for:item="config">
+                        <tr key={config.Id}>
+                            <th scope="col"> {config.name}</th>
+                        </tr>
+                        
+                        <template class="slds-box" for:each={config.subCategs} for:item="subCateg">
+                            <tr key={subCateg.Id}>
+                                <th scope="col">{subCateg.name}</th>
+                                <th>
+                                    <lightning-input type="number" variant="label-hidden" value={subCateg.goalValue}  data-id={subCateg.Id} onchange={goalValChange}>
+
+                                    </lightning-input>
+                                    <!-- <lightning-input-field variant="label-hidden"
+                                        field-name={config.configCat.varasi_am__Column_Name_3__c}></lightning-input-field> -->
+                                </th>
+                                <th class="alignCenter">
+                                     <!-- style="text-align: center;"> -->
+                                    <lightning-input type="checkbox" variant="label-hidden" checked={subCateg.isMax} data-id={subCateg.Id} onchange={isMaxChange}></lightning-input>
+                                    <!-- <lightning-input-field key={config.configCat.varasi_am__Column_Name_2__c}
+                                        variant="label-hidden"
+                                        field-name={config.configCat.varasi_am__Column_Name_2__c}></lightning-input-field> -->
+                                </th>
+                                
+                                <th>
+                                    <lightning-input type="number" variant="label-hidden" value={subCateg.currentValue} data-id={subCateg.Id} onchange={currentValChange}></lightning-input>
+                                    <!-- <lightning-input-field key={config.configCat.varasi_am__Column_Name__c} variant="label-hidden"
+                                        field-name={config.configCat.varasi_am__Column_Name__c}>
+                                    </lightning-input-field> -->
+                                </th>
+                                <th>
+                                    <lightning-progress-ring value={subCateg.progressValue} variant={subCateg.variant}> </lightning-progress-ring>
+                                </th> 
+                            </tr>
+                        </template>
+                    </template>
+                </tbody>
+            </table>
+
+            <div class="slds-clearfix">
+                <div class="slds-float_right slds-grid">
+                    <div class="slds-m-right_xxx-small slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" name="cancel"
+                            onclick={handleCancel} label="Cancel">
+                        </lightning-button>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update"
+                            label="Save">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </lightning-record-edit-form>
+    </lightning-card>
+</template>

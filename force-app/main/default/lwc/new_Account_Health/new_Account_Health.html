@@ -1,0 +1,78 @@
+<template>
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <lightning-record-edit-form object-api-name="varasi_am__Account_Health_Metrics__c"
+                    onsubmit={onSubmitHandler}>
+                    <header class="slds-modal__header">
+                        <button class="slds-button slds-button_icon slds-modal__close " title="Close" onclick={closeModal}>
+                            <lightning-icon icon-name="utility:close"
+                                alternative-text="close"
+                                variant="inverse"
+                                size="small" ></lightning-icon>
+                            <span class="slds-assistive-text">Close</span>
+                        </button>
+                        <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Create New Account Health</h2>
+                    </header>
+                    <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                        <lightning-input-field field-name="varasi_am__Account__c" value={recordId} disabled></lightning-input-field>
+                        <lightning-input-field field-name="varasi_am__Health_Score_Date__c" required></lightning-input-field>
+                        <table class="slds-table slds-table_cell-buffer">
+                            <tbody>
+                                <template for:each={mapData} for:item="config">
+                                    <tr key={config.key}>
+                                        <th scope="col"><b>{config.key}</b></th>
+                                    </tr>
+                                    <template for:each={config.value} for:item="configDetail">
+                                        <tr key={config.key}>
+                                            <th>
+                                                
+                                            </th>
+                                            <th>
+                                                {configDetail.Name}
+                                            </th>
+                                            <th>
+                                                <!-- <lightning-input-field key={configDetail.varasi_am__Column_Name__c} variant="label-hidden" field-name={configDetail.varasi_am__Column_Name__c}>
+                                                </lightning-input-field> -->
+                                                <!--<lightning-slider variant="label-hidden" min="0" max="5" value={configDetail.Columnvalue} name={configDetail.varasi_am__Column_Name__c} onchange={sliderHandle}></lightning-slider>-->
+                                                <div class="slds-truncate">
+                                                    <lightning-radio-group 
+                                                        variant="label-hidden"
+                                                        options={options} 
+                                                        value={configDetail.Columnvalue}
+                                                        type="button"
+                                                        onchange={sliderHandle}
+                                                        name={configDetail.varasi_am__Column_Name__c}>
+                                                    </lightning-radio-group>
+                                                </div>
+                                        </th>
+                                        </tr>
+                                    </template>
+                                </template>
+                            </tbody>
+                        </table>
+                        <lightning-combobox name="con1" value={value} label="Notable Contribution" placeholder="Select Contact" options={conList} onchange={handleChange}> </lightning-combobox>
+                        <lightning-combobox name="con2" value={value} label="Notable Contribution" placeholder="Select Contact" options={conList} onchange={handleChange2}> </lightning-combobox>
+                        <lightning-combobox name="con3" value={value} label="Notable Contribution" placeholder="Select Contact" options={conList} onchange={handleChange3}> </lightning-combobox>
+                        <lightning-input-field field-name="varasi_am__Note__c"></lightning-input-field>
+                    </div>
+                    <footer>
+                        <div class="slds-clearfix slds-modal__footer">
+                            <div class="slds-float_right slds-grid">
+                                <div class="slds-m-right_xxx-small slds-col">
+                                    <lightning-button class="slds-m-top_small" variant="Neutral" type="cancel" name="cancel" onclick={handleCancel} label="Cancel">
+                                    </lightning-button>
+                                </div>
+                                <div class="slds-col">
+                                    <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Save">
+                                    </lightning-button>
+                                </div>
+                            </div>
+                        </div>  
+                    </footer>
+                </lightning-record-edit-form>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>   
+</template>

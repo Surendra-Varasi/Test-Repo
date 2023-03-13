@@ -1,0 +1,18 @@
+<template>
+	<div class="slds-card">
+		<div class="slds-card__body slds-card__body_inner">
+			<lightning-record-edit-form
+				id="recordEditForm"
+				record-id={recordId}
+				object-api-name="Account"
+				onsuccess={saveFlagFalse}
+			>
+				<lightning-messages> </lightning-messages>
+				<lightning-input-field field-name="varasi_am__Top_of_Mind__c" onchange={saveFlagTrue} label="Custom"></lightning-input-field>
+				<template if:true={isSave}>
+					<lightning-button class="slds-m-top_small" type="submit" label="Save"></lightning-button>
+				</template>
+			</lightning-record-edit-form>
+		</div>
+	</div>
+</template>

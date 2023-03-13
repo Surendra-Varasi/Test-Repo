@@ -1,0 +1,14 @@
+<template>
+    <div class=" slds-card slds-card_boundary ">
+    <!-- <lightning-card  title="Account Goals">
+        <lightning-button-icon  title="Refresh" icon-name="utility:refresh" slot="actions"  onclick={refreshPage}></lightning-button-icon>
+        <lightning-button label="New Goal" onclick={newRecGoal} slot="actions"></lightning-button>
+        <lightning-datatable data={data} columns={cols} hide-checkbox-column="true" key-field="Id"></lightning-datatable>
+        <br></br>
+    </lightning-card> -->
+    <c-reusable-datatable title="Account Goals" records={data} columns={cols} new-record-button={newRecordButton} new-record-label="Set Goal" refresh-button={refreshButton}
+    actions={actions} onselectedaction={handleActions} onrefresh={refreshPage} onnewrec={newRecGoal} search-function={searchFunction} 
+    search-fields={searchFields}></c-reusable-datatable>
+</div>
+      
+</template>

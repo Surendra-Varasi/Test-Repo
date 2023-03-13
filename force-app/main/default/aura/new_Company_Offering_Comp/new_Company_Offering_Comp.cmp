@@ -1,0 +1,7 @@
+<aura:component implements="lightning:actionOverride,lightning:isUrlAddressable,flexipage:availableForAllPageTypes" access="global">
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:workspaceAPI aura:id="workspace"/>
+    <aura:attribute name="accId" type="String"/>
+    recId:{!v.accId}
+    <c:new_Company_Offering recordId="{!v.accId}" oncloseclicked="{!c.handleFilterChange}"></c:new_Company_Offering>
+</aura:component>

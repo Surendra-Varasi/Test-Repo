@@ -1,0 +1,95 @@
+<template>
+    <lightning-card>
+        <lightning-record-edit-form object-api-name="varasi_am__Account_Budget_Detail__c"
+            record-id={recordId}
+            onsuccess={handleSuccess} onsubmit={onSubmitHandler}>
+            <lightning-input-field field-name="Name">
+            </lightning-input-field>
+            <lightning-input-field field-name="varasi_am__Account__c">
+            </lightning-input-field>
+            <lightning-input-field field-name="varasi_am__Year__c" read-only="true">
+            </lightning-input-field>
+            <!-- <lightning-input-field field-name="varasi_am__Budget_Allotted__c" class="slds-hidden">
+            </lightning-input-field> -->
+            <lightning-input type="number" class="slds-m-left_xx-small" name="input1" label="Overall Budget" formatter="currency" currency-iso-code="EUR"
+             value={overAllBudget} readonly></lightning-input>
+            <!-- <lightning-input-field field-name="varasi_am__Overall_Budget__c" value={overAllBudget}>
+            </lightning-input-field> -->
+            <lightning-input-field field-name="varasi_am__Total_Expenses__c">
+            </lightning-input-field>
+            
+            Enter Budget by Category
+            <table class="slds-table slds-table_cell-buffer">
+                <tbody>
+                    <!-- <template for:each={mapData} for:item="config">
+                        <tr key={config.key}>
+                            <th scope="col">{config.key}</th>
+                            <th>
+                                <template for:each={config.value} for:item="configDetail">
+                                    <lightning-input-field key={configDetail.varasi_am__Column_Name__c} variant="label-hidden" field-name={configDetail.varasi_am__Column_Name__c}>
+                                            </lightning-input-field>
+                                </template>
+                        </th>
+                        <th>
+                            <template for:each={config.value} for:item="configDetail">
+                                <lightning-output-field key={configDetail.varasi_am__Column_Name_2__c}  field-name={configDetail.varasi_am__Column_Name_2__c}>
+                                        </lightning-output-field>
+                            </template>
+                        </th>
+                        </tr>
+                        
+                    </template> -->
+                    <tr >
+                        <th></th>
+                        <th></th>
+                        <th class="slds-text-title_bold slds-float_right"><b>Budget</b></th>
+                        <th></th>
+                        <th class="slds-text-title_bold slds-float_right"><b>Expense</b></th>
+                    </tr>
+                    <template for:each={categDetail} for:item="config">
+                        <tr key={config.Id}>
+                            <th class="slds-text-title_bold" scope="col"><b>{config.name}</b></th>
+                            <th><b>Total</b></th>
+                            <th class="slds-text-title_bold slds-float_right" scope="col"><b>${config.categTotalBudget}</b></th>
+                            <th></th>
+                            <th class="slds-text-title_bold slds-float_right" scope="col"><b>${config.expenseTotal}</b></th>
+                        </tr>
+                        <template for:each={config.subCategs} for:item="detail">
+                            <tr key={detail.id}>
+                                <th>
+                                    
+                                </th>
+                                <th>
+                                    {detail.name}
+                                </th>
+                                <th>
+                                    <lightning-input-field variant="label-hidden" field-name={detail.colName}></lightning-input-field>
+                                </th>
+                                <th>
+
+                                </th>
+                                <th>
+                                    {detail.expense}
+                                </th>
+                            </tr>
+                        </template>
+                    </template>
+                    
+                </tbody>
+        </table>
+
+            <div class="slds-clearfix">
+                <div class="slds-float_right slds-grid">
+                    <div class="slds-m-right_xxx-small slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" name="cancel" onclick={handleCancel} label="Cancel">
+                        </lightning-button>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Save">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>  
+    </lightning-record-edit-form> 
+</lightning-card>  
+</template>

@@ -1,0 +1,28 @@
+<template>
+    <div class=" slds-card slds-card_boundary ">
+    <!-- <lightning-card  title="Account Budget">
+        <lightning-button-icon  title="Refresh" icon-name="utility:refresh" slot="actions"  onclick={refreshPage}></lightning-button-icon>
+        <lightning-button  title="Refresh" icon-name="utility:refresh" slot="actions"  onclick={refreshPage}></lightning-button>
+        <button class="slds-button slds-button_icon slds-button_icon-border" title="Refresh"  onclick={refreshPage}>
+            <svg class="slds-button__icon" aria-hidden="true">
+                <use xlink:href="/_slds/icons/utility-sprite/svg/symbols.svg?cache=9.28.0#refresh"></use>
+            </svg>
+        </button>
+        <lightning-button label="Set Budget" onclick={newRecBudget} slot="actions"></lightning-button>
+        <lightning-datatable data={data} columns={cols} key-field="Id"></lightning-datatable>
+           <c-datatable columns={columns}
+                         records={data}
+                         per-page={perPage}
+                         is-searching-enable={searchingEnable}
+                         onsavedata={handleSaveData}>
+            </c-datatable>
+        
+        <template if:false={isVisible}>
+            No Content to Display!!
+        </template>
+    </lightning-card> -->
+    <c-reusable-datatable title="Account Budget" records={data} columns={cols} new-record-button={newRecordButton} new-record-label="New Budget" refresh-button={refreshButton}
+    actions={actions} onselectedaction={handleActions} onrefresh={refreshPage} onnewrec={newRecBudget} search-function={searchFunction} 
+    search-fields={searchFields}></c-reusable-datatable>
+</div>
+</template>

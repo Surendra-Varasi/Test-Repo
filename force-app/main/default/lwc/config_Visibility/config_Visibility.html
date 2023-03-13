@@ -1,0 +1,28 @@
+<template>
+    <lightning-card>
+    <!-- <header slot="title" class="slds-page-header slds-page-header_record-home">
+        <lightning-icon icon-name="standard:channel_program_history" ></lightning-icon>
+        <strong class="slds-m-left--x-small">Configuration Visiblity</strong>
+    </header> -->
+    <table class="slds-table slds-table_cell-buffer">
+        <tbody>
+            <template for:each={data} for:item="config">
+                <tr key={config.Name}>
+                    <th scope="col">{config.Name}</th>
+                    <th>
+                        <lightning-input type="checkbox" name={config.Name} label="" checked={config.varasi_am__Is_Visible__c} onchange={handleChange}></lightning-input>
+                </th>
+                </tr> 
+            </template>
+        </tbody>
+</table>
+<br></br>
+<lightning-button
+                            class="slds-m-top_small slds-float_right slds-grid"
+                            type="submit"
+                            label="Save" 
+                            variant="brand"
+                            onclick={saveConfig}>
+                        </lightning-button>
+                    </lightning-card>
+</template>

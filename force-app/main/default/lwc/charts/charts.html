@@ -1,0 +1,51 @@
+<template>
+  
+    <lightning-card  title="Account Summary">
+      <!-- <template if:true={isRed}>
+      <lightning-button class="slds-m-top_small" slot="actions"
+                                                name="cancel" onclick={changeAccount} label="Resolve">
+            </lightning-button>
+      </template> slds-p-top_xxx-small slds-m-left_large slds-m-bottom_large-->
+      <div class="slds-p-top_xxx-small" slot="actions">
+        <template if:true={isRed}>
+          <lightning-icon icon-name="action:close" size="x-small" alternative-text="Red Status" class="slds-m-right_small" title="Red Status"></lightning-icon>
+          Status <b>Red </b>
+          <!-- <img src='/resource/red'><br/> -->
+          <!-- google_news -->
+          Since <b> {redSince} </b>
+            <!-- <lightning-button class="slds-m-top_small" variant="brand"
+                                              name="cancel" onclick={changeAccount} label="Resolve">
+            </lightning-button> -->
+        </template>
+    </div>
+      <div class="slds-grid">
+        <div class="slds-col slds-size_1-of-6">
+          <lightning-combobox value={valueYear} placeholder="Select Year" options={yearList} onchange={yearChange}></lightning-combobox>
+        </div>
+        <div class="slds-col slds-size_3-of-6">
+        </div>
+        <div class="slds-col slds-size_2-of-6 slds-p-top_xxx-small slds-m-left_large slds-m-bottom_large">
+            <!-- <template if:true={isRed}>
+              <lightning-icon icon-name="action:close" size="x-small" alternative-text="Red Status" class="slds-m-right_small" title="Red Status"></lightning-icon>
+              Status <b style="font-weight: bold;">Red </b>
+              Since <b style="font-weight: bold;"> {redSince} </b>
+            </template> -->
+        </div>
+      </div>
+        <div class="slds-grid slds-gutters ">
+          <div class="slds-col slds-size_1-of-3 slds-border_right chartComp">
+            <!-- style="height: 300px;" -->
+            <span><c-account_-target_-chart record-id={recordId}></c-account_-target_-chart></span>
+          </div>
+            <div class="slds-col slds-size_1-of-3 slds-border_right chartComp">
+              <!-- style="height: 300px;" -->
+              <span><c-account_-health_-chart record-id={recordId} ></c-account_-health_-chart></span>
+            </div>
+            <div class="slds-col slds-size_1-of-3 slds-scrollable chartComp">
+              <!-- style="height: 300px;" -->
+              <!-- <lightning-input type="toggle" label="Is Red Account" checked={isRed} name="input1" message-toggle-active="It is Red Account" message-toggle-inactive="It is Not Red Account"  onchange={changeAccount}></lightning-input> -->
+              <c-account_-recommendation_-tile record-id={recordId}></c-account_-recommendation_-tile>
+            </div>
+        </div>
+    </lightning-card>
+</template>

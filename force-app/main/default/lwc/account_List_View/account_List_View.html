@@ -1,0 +1,112 @@
+<template>
+    <div class=" slds-card slds-card_boundary ">
+    <lightning-card  title="Account List">
+        <!--
+        <div class="slds-grid">
+            <div class="slds-col slds-size_1-of-6">
+              <lightning-combobox value={valueYear} placeholder="Select Year" options={yearList} onchange={yearChange}></lightning-combobox>
+            </div>
+            <div class="slds-col slds-size_3-of-6"></div>
+            <div class="slds-col slds-size_2-of-6 slds-p-top_xxx-small slds-m-left_large slds-m-bottom_large"></div>
+          </div>
+
+        <div class="slds-p-around_medium lgc-bg slds-grid slds-gutters">
+            <div class="slds-col slds-size_1-of-8">
+                {selectedItemValue}
+            </div>
+            <div class="slds-col slds-size_1-of-8">
+                <lightning-button-menu alternative-text="Show menu" onselect={handleOnselect}>
+                    <lightning-menu-item value="All" label="All" ></lightning-menu-item>
+                    <lightning-menu-item value="Target Met" label="Target Met"></lightning-menu-item>
+                    <lightning-menu-item value="Target Not Met" label="Target Not Met"></lightning-menu-item>
+                    <lightning-menu-item value="Account Health: Good" label="Account Health: Good"></lightning-menu-item>
+                    <lightning-menu-item value="Account Health: Acceptable" label="Account Health: Acceptable"></lightning-menu-item>
+                    <lightning-menu-item value="Account Health: Critical" label="Account Health: Critical"></lightning-menu-item>
+                </lightning-button-menu>
+            </div>
+        </div> -->
+        <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+            <thead>
+                <tr class="slds-line-height_reset">
+                    
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Account Name</div>
+                    </th>
+                    <!--<th class="" scope="col">
+                        <div class="slds-truncate alignCenter" title="Name">Red Account</div>
+                    </th>-->
+                    <th class="" scope="col">
+                        <div class="alignRight slds-truncate" title="Target Expected">Target</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="alignRight slds-truncate" title="Target Current">Achieved</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="alignRight slds-truncate" title="Target Pipeline">Pipeline</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate alignCenter" title="Health">Average Health Score</div>
+                    </th>
+                    <th class="" scope="col">
+                        <div class="slds-truncate" title="Name">Owner</div>
+                    </th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                <template for:each={acctdata} for:item="con">
+                    <tr key={con.Id}>
+                        
+                        <th scope="col">
+                            <div ><a id={con.accnt.Id} onclick={toNavigate}>{con.accnt.Name}</a></div>
+                        </th>
+                        <!--<th scope="col">
+                            <div class="alignCenter">
+                                <img src={con.redAccount} class="image"/> 
+                            </div>
+                        </th>-->
+                        <th scope="col" class="alignRight">
+                            <template if:true={con.expectedTarget}>
+                                <lightning-formatted-number minimum-fraction-digits="0" value={con.expectedTarget} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number>
+                            </template>
+                        </th>
+                        <th scope="col" class="alignRight">
+                            <template if:true={con.currentTarget}>
+                                <!-- <div class="alignRight">${con.currentTarget}</div> -->
+                                <lightning-formatted-number minimum-fraction-digits="0" value={con.currentTarget} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number>
+                            </template>
+                        </th>
+                        <th scope="col" class="alignRight">
+                            <template if:true={con.pipelineTarget}>
+                                <!-- <div class="alignRight">${con.pipelineTarget}</div> -->
+                                <lightning-formatted-number minimum-fraction-digits="0" value={con.pipelineTarget} format-style="currency" currency-code="USD" currency-display-as="symbol"></lightning-formatted-number>
+                            </template>
+                        </th>
+                        <th scope="col">
+                            <template if:true={con.showHealthBar}>
+                                <div class="slds-grid">
+                                    <div class="slds-col slds-size_8-of-12 slds-m-top_xx-small">
+                                        <lightning-progress-bar value={con.healthScore} size="large"></lightning-progress-bar>
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-12">
+                            
+                                    </div>
+                                    <div class="slds-col slds-size_1-of-12 slds-m-bottom_xx-small">
+                                        <span><b class={con.avgHealthDecoration}>
+                                            <lightning-formatted-number value={con.avgHealth} format-style="decimal" minimum-fraction-digits="1"></lightning-formatted-number>
+                                        </b></span>
+                                    </div>
+                                </div>
+                            <!--  <div  >{con.healthScore}</div>-->
+                            </template>
+                        </th>
+                        <th scope="col">
+                            <div ><a id={con.accnt.OwnerId} onclick={toNavigate}>{con.accnt.Owner.Name}</a></div>
+                        </th>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+    </lightning-card>
+</div>
+</template>

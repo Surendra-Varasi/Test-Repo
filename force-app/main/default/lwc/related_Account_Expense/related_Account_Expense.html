@@ -1,0 +1,27 @@
+<template>
+    <div class=" slds-card slds-card_boundary ">
+    <lightning-card  title="">
+        <lightning-button-icon  title="Refresh" icon-name="utility:refresh" slot="actions"  onclick={refreshPage}></lightning-button-icon>
+        <lightning-button label="New Expense" onclick={newRecExpense} slot="actions"></lightning-button> 
+        <div class="slds-var-m-around_medium">
+            <lightning-tree-grid data={data} columns={cols} key-field="name">
+            </lightning-tree-grid>
+        </div>
+        <!-- <lightning-datatable data={data} columns={cols} hide-checkbox-column="true" key-field="Id"></lightning-datatable> -->
+        <!-- <template for:each={data} for:item="budget">
+            <lightning-accordion key={budget.budgetId} allow-multiple-sections-open active-section-name={activeSections}>
+                <lightning-accordion-section name={budget.budgetName} label={budget.budgetNameNumber}>
+                    <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                        <template for:each={budget.budgetCategs} for:item="categ">
+                            <lightning-accordion-section key={categ.budgetCategName} name={categ.budgetCategName} label={categ.budgetCategNameNumber}>
+                                <lightning-datatable data={categ.expenses} columns={cols} hide-checkbox-column="true" key-field="expenseId"></lightning-datatable>
+                            </lightning-accordion-section>  
+                        </template>
+                    </lightning-accordion>
+                </lightning-accordion-section>
+            </lightning-accordion>
+        </template> -->
+
+    </lightning-card>
+</div>
+</template>

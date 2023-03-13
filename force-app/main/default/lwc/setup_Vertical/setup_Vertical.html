@@ -1,0 +1,73 @@
+<template>
+    <lightning-card>
+        <h2 slot="title">
+            <lightning-icon icon-name="utility:metrics" size="small"></lightning-icon>
+            <strong class="slds-m-left--x-small">Module Categories </strong>
+        </h2>
+        <!-- <header slot="title" class="slds-page-header slds-page-header_record-home">
+            <lightning-icon icon-name="standard:channel_program_history" ></lightning-icon>
+            <strong class="slds-m-left--x-small">Configure Module Metrices</strong>
+        </header> -->
+    
+        <lightning-tabset variant="vertical">
+            <lightning-tab label="Health Metrics" icon-name="utility:feed">
+                <span><c-configure-account-health></c-configure-account-health></span> 
+            </lightning-tab>
+            <lightning-tab label="Checklists" icon-name="utility:task">
+                <span><c-configure-checklists></c-configure-checklists></span> 
+            </lightning-tab>
+            <!-- <lightning-tab label="Configure Notification" >
+                <span><c-configure-notifications></c-configure-notifications></span> 
+            </lightning-tab> 
+            <lightning-tab label="Configure Insight Rules" >
+                <span><c-rule_-config></c-rule_-config></span>  
+            </lightning-tab> 
+            <lightning-tab label="Configure Internal Account" >
+                <span><c-internal-account-configuration></c-internal-account-configuration></span> 
+            </lightning-tab> -->
+            <lightning-tab label="Offerings" icon-name="utility:strategy">
+                <span><c-configure-offerings></c-configure-offerings></span> 
+            </lightning-tab>
+            <lightning-tab label="Expenses" icon-name="utility:moneybag">
+                <span><c-configure-budget></c-configure-budget></span> 
+            </lightning-tab>
+            <lightning-tab label="Goals" icon-name="utility:price_books">
+                <span><c-configure-target></c-configure-target></span> 
+            </lightning-tab>
+        </lightning-tabset>
+    </lightning-card>
+    <lightning-card>
+        <h2 slot="title">
+            <lightning-icon icon-name="utility:identity" class="slds-m-top_small"  size="small"></lightning-icon>
+            <strong class="slds-m-left--x-small slds-m-top_small">Account Insight</strong>
+            <lightning-helptext class="slds-m-top_small" content="When enabled, Account Insights module runs every day to identify pre-configured insights for strategic accounts. You can also run the insights module manually by clicking 'Run Insight' button once."></lightning-helptext>
+        </h2>
+        <!-- <lightning-tabset variant="vertical">
+            <lightning-tab label="Account Insight">
+                <span> -->
+                    <c-rule_-config></c-rule_-config>
+                <!-- </span>  
+            </lightning-tab> 
+        </lightning-tabset> -->
+    </lightning-card>
+    <lightning-card>
+        <h2 slot="title">
+            <lightning-icon icon-name="utility:locker_service_api_viewer" size="small"></lightning-icon>
+            <strong class="slds-m-left--x-small">Others</strong>
+        </h2>
+        <lightning-tabset variant="vertical">
+            <!-- <lightning-tab label="Internal Account" icon-name="utility:home">
+                <span></span> 
+            </lightning-tab> -->
+            <!-- <lightning-tab label="Relationship Types" >
+                <span><c-configure-relatiopnship-type></c-configure-relatiopnship-type></span> 
+            </lightning-tab> -->
+            <lightning-tab label="Visibility" icon-name="utility:preview">
+                <span><c-config_-visibility></c-config_-visibility></span> 
+            </lightning-tab>
+            <lightning-tab label="Roles" icon-name="utility:user">
+                <span><c-opportunity_roles></c-opportunity_roles></span> 
+            </lightning-tab>
+        </lightning-tabset>
+    </lightning-card>
+</template>

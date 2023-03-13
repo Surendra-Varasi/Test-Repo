@@ -1,0 +1,59 @@
+<template>
+    <lightning-card>
+        <lightning-record-edit-form object-api-name="varasi_am__Account_Expense_Detail__c"
+            record-id={recordId}
+            onsuccess={handleSuccess} onsubmit={onSubmitHandler}>
+            <lightning-input-field field-name="Name">
+            </lightning-input-field>
+            <lightning-input-field field-name="varasi_am__Account__c">
+            </lightning-input-field>
+           <lightning-combobox
+               name="budget"
+               value={value}
+               label="Account Budget"
+               placeholder="Select Account Budget"
+               options={mapData}
+               onchange={handleChange}
+               required=TRUE
+               >
+        </lightning-combobox>
+        <lightning-combobox
+               name="budgetCat"
+               value={value2}
+               label="Budget Category"
+               placeholder="Select Budget Category"
+               options={budgetCatList}
+               onchange={handleChange2}
+               >
+        </lightning-combobox>
+        <lightning-combobox
+               name="budgetSubCat"
+               value={value3}
+               label="Budget Sub-Category Category"
+               placeholder="Select Budget Sub-Category Category"
+               options={budgetSubCatList}
+               onchange={handleChange3}
+               >
+        </lightning-combobox>
+        <lightning-input-field field-name="varasi_am__Expense_Amount__c">
+        </lightning-input-field>
+        <lightning-input-field field-name="varasi_am__Expense_Date__c" read-only="true" >
+        </lightning-input-field>    
+            
+        
+
+            <div class="slds-clearfix">
+                <div class="slds-float_right slds-grid">
+                    <div class="slds-m-right_xxx-small slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" name="cancel" onclick={handleCancel} label="Cancel">
+                        </lightning-button>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Save">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>  
+    </lightning-record-edit-form> 
+</lightning-card>  
+</template>

@@ -1,0 +1,96 @@
+<!--<template>
+        <lightning-card  title="Account Checklist">
+                <lightning-datatable data={data} columns={cols} key-field="Id"></lightning-datatable>        
+            </lightning-card>
+
+</template> -->
+<template>
+    <!-- <div class=" slds-card slds-card_boundary "> -->
+     <!--    <lightning-card title="Account Checklists">
+        <lightning-button-icon title="Refresh" icon-name="utility:refresh" slot="actions" onclick={refreshPage}></lightning-button-icon>
+        <lightning-button label="New Checklist" slot="actions" onclick={newRec}></lightning-button>
+            <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                    <thead>
+                        <tr class="slds-line-height_reset">
+                            
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Name">Checklist Name</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Category Type">Checklist Type</div>
+                            </th>
+                            <th class="" scope="col">
+                                <div class="slds-truncate" title="Phone">Progress</div>
+                            </th>
+                            
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <template for:each={data} for:item="con">
+                            <tr key={con.Id}>
+                                
+                                <th scope="col">
+                                    <div><a id={con.Id} onclick={toNavigate}>{con.Name}</a></div>
+                                </th>
+                                <th scope="col">
+                                    <div>{con.varasi_am__Configuration_Category__r.Name}</div>
+                                </th>
+                                <th scope="col">
+                                    <div>
+                                        <lightning-progress-ring value={con.progress} variant={con.colour} > </lightning-progress-ring>
+                                    </div>
+                                </th>
+                                
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+        
+               
+        
+                <div if:true={selectedCons}>
+                    <template if:true={bShowModal}>
+                        <section aria-describedby="modal-content-id-1" aria-labelledby="modal-heading-01" aria-modal="true" class="slds-modal slds-fade-in-open" role="dialog" tabindex="-1">
+                            <div
+                                class="slds-modal__container">
+                               
+                                <header class="slds-modal__header">
+                                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" onclick={closeModal} title="Close">
+                                        <lightning-icon alternative-text="close" icon-name="utility:close" size="small" variant="inverse"></lightning-icon>
+                                        <span class="slds-assistive-text">Close</span>
+                                    </button>
+                                    <h2 class="slds-text-heading_medium slds-hyphenate" id="modal-heading-01">Selected Contacts Records</h2>
+                                </header>
+                                
+                                <div class="slds-modal__content slds-var-p-around_medium" id="modal-content-id-1">
+                                    <template for:each={selectedCons} for:item="con">
+                                        <dl class="slds-list_horizontal slds-wrap" if:true={con.Id} key={con.Id}>
+                                            <dt class="slds-item_label slds-truncate" title="First Name">Contact Name:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{con.Name}</dd>
+                                            <dt class="slds-item_label slds-truncate" title="LastName">Contact Id:</dt>
+                                            <dd class="slds-item_detail slds-truncate">{con.Id}</dd>
+                                            <hr></dl>
+                                        </template>
+        
+                                    </div>
+                                    
+                                    <footer class="slds-modal__footer">
+                                        <button class="slds-button slds-button_neutral" onclick={closeModal}>Cancel</button>
+                                    </footer>
+                                </div>
+                            </section>
+                            <div class="slds-backdrop slds-backdrop_open"></div>
+                        </template>
+                    </div>
+                </lightning-card>-->
+                <lightning-card>
+                    <h2 slot="title">
+                        <lightning-icon icon-name="utility:task"></lightning-icon>
+                        <strong class="slds-m-left--x-small">Checklists</strong>
+                    </h2>
+                    <c-reusable-datatable title="Account Checklists" records={data} columns={cols} new-record-button={newRecordButton} new-record-label="New Checklist" refresh-button={refreshButton}
+                    actions={actions} onselectedaction={handleActions} onrefresh={refreshPage} onnewrec={newRec} search-function={searchFunction} 
+                    search-fields={searchFields}></c-reusable-datatable>
+                </lightning-card>
+    <!-- </div>  -->
+</template>

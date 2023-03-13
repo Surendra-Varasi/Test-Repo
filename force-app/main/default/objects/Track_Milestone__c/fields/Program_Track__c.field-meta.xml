@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Program_Track__c</fullName>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Program Track</label>
+    <referenceTo>Program_Track__c</referenceTo>
+    <relationshipLabel>Track Milestones</relationshipLabel>
+    <relationshipName>Track_Milestones</relationshipName>
+    <relationshipOrder>0</relationshipOrder>
+    <reparentableMasterDetail>false</reparentableMasterDetail>
+    <trackTrending>false</trackTrending>
+    <type>MasterDetail</type>
+    <writeRequiresMasterRead>false</writeRequiresMasterRead>
+</CustomField>

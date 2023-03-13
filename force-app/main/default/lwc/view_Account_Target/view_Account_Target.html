@@ -1,0 +1,75 @@
+<template>
+    <lightning-card>
+        <lightning-record-edit-form object-api-name="varasi_am__Account_Target__c" onsuccess={handleSuccess}
+            record-id={recordId}>
+            <lightning-input-field field-name="Name">
+            </lightning-input-field>
+            <lightning-input-field field-name="varasi_am__Account__c">
+            </lightning-input-field>
+            <lightning-input-field field-name="varasi_am__Target_Year__c">
+            </lightning-input-field>
+            <table class="slds-table slds-table_cell-buffer">
+                <tbody>
+                    <!--
+                <template for:each={mapData} for:item="config">
+                    <tr key={config.key}>
+                        <th scope="col">{config.key}</th>
+                        <th>
+                        <template for:each={config.value} for:item="configDetail">
+                                <lightning-input-field key={configDetail.varasi_am__Column_Name__c} variant="label-hidden" field-name={configDetail.varasi_am__Column_Name__c}>
+                                </lightning-input-field>
+                    </template>
+                </th>
+                    </tr>
+                    
+                </template>
+                -->
+                    <tr>
+                        <th>Enter Target by Category</th>
+                        <th>Value</th>
+                        <th>Max Value</th>
+                        <th>Min Value</th>
+
+                    </tr>
+                    <template for:each={mapData} for:item="config">
+                        <tr key={config.Id}>
+                            <th scope="col">{config.Name}</th>
+                            <th>
+                                <lightning-input-field key={config.varasi_am__Column_Name__c} variant="label-hidden"
+                                    field-name={config.varasi_am__Column_Name__c}>
+                                </lightning-input-field>
+                            </th>
+                            <th>
+                                <lightning-input-field key={config.varasi_am__Column_Name_2__c}
+                                    disabled={config.disableMax} variant="label-hidden"
+                                    field-name={config.varasi_am__Column_Name_2__c}></lightning-input-field>
+                            </th>
+                            <th>
+                                <lightning-input-field key={config.varasi_am__Column_Name_3__c}
+                                    disabled={config.disableMin} variant="label-hidden"
+                                    field-name={config.varasi_am__Column_Name_3__c}></lightning-input-field>
+                            </th>
+
+
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+
+            <div class="slds-clearfix">
+                <div class="slds-float_right slds-grid">
+                    <div class="slds-m-right_xxx-small slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" type="cancel" name="cancel"
+                            onclick={handleCancel} label="Cancel">
+                        </lightning-button>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update"
+                            label="Save">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>
+        </lightning-record-edit-form>
+    </lightning-card>
+</template>

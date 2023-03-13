@@ -1,0 +1,105 @@
+<template>
+    <template if:true={isModalOpen}>
+        <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+            <div class="slds-modal__container">
+                <header class="slds-modal__header">
+                    <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                        <lightning-icon icon-name="utility:close"
+                            alternative-text="close"
+                            variant="inverse"
+                            size="small" ></lightning-icon>
+                        <span class="slds-assistive-text">Close</span>
+                    </button>
+                    <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Create New Account Checklist</h2>
+                </header>
+                <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                    <lightning-record-edit-form object-api-name="varasi_am__Account_Checklist__c"
+            onsuccess={handleSuccess} onsubmit={handleSubmit}>
+        <lightning-input-field field-name="Name">
+        </lightning-input-field>
+        
+        <!-- <lightning-input-field field-name="varasi_am__relatedObjectId__c" value={recordId}>
+        </lightning-input-field> -->
+        <!-- <lightning-input-field field-name="varasi_am__Account__c" value={recordId}>
+        </lightning-input-field> -->
+        <!-- <lightning-input-field field-name="varasi_am__Configuration_Category__c" onchange={handleCategoryChange}>
+        </lightning-input-field> -->
+        <lightning-combobox 
+            name="Checklist Category"
+            label="Checklist Category"
+            value={chkValue}
+            placeholder="Checklist Category"
+            options={checklistCat}
+            onchange={handleCategoryChange}></lightning-combobox>
+        <!-- <lightning-combobox
+                data-id={checklistCat.Id}
+                value={checklist.assignedUser}
+                label="Assign Task To:"
+                placeholder="Select User"
+                options={Users}
+                onchange={userChange}>
+        </lightning-combobox> -->
+        <table class="slds-table slds-table_cell-buffer">
+            <tbody>
+                <!-- <template for:each={mapData} for:item="checklist">
+                    <tr key={checklist.varasi_am__Column_Name__c}>
+                        <th scope="col">{checklist.Name}</th>
+                        <th scope="col"><lightning-input-field key={checklist.varasi_am__Column_Name__c} variant="label-hidden" field-name={checklist.varasi_am__Column_Name__c}>
+                        </lightning-input-field></th>
+                        <th scope="col"><div class="slds-float_right">
+                            Assign Task To : 
+                        </div></th>
+                        <th scope="col"><lightning-input-field key={checklist.varasi_am__Column_Owner__c} variant="label-hidden" field-name={checklist.varasi_am__Column_Owner__c}>
+                        </lightning-input-field></th>
+                    </tr>
+                </template> -->
+                <template for:each={mapData} for:item="check">
+                    <template for:each={check.metrics} for:item="checklist">
+                        <tr key={checklist.Id}>
+                            <th scope="col">
+                                {checklist.name}
+                            </th>
+                            <!--<th scope="col">
+                                <lightning-input type="checkbox" variant="label-hidden" checked={checklist.isComplete}  data-id={checklist.Id} onchange={isCompChange}></lightning-input>
+                            </th>-->
+                            <th scope="col">
+                                <!-- <lightning-input type="checkbox" variant="label-hidden" value={checklist.assignedUser} data-id={checklist.Id} onchange={isMaxChange}></lightning-input> -->
+                                <lightning-combobox
+                                    data-id={checklist.Id}
+                                    value={checklist.assignedUser}
+                                    label="Assign Task To:"
+                                    placeholder="Select User"
+                                    options={Users}
+                                    onchange={userChange}>
+                                </lightning-combobox>
+                            </th>
+                            <th>
+                                <lightning-input type="date" name="input2" label="Deadline Date" data-id={checklist.Id} value={checklist.deadLineDate} onchange={dateChange}></lightning-input>
+                            </th>
+                            <!-- <th>
+                                <lightning-input label="Comment" value={checklist.comment} data-id={checklist.Id} onchange={commentChange}></lightning-input>
+                            </th> -->
+                        </tr>
+                    </template>
+                </template>
+            </tbody>
+        </table>
+            <div class="slds-clearfix">
+                <div class="slds-float_right slds-grid">
+                    <div class="slds-m-right_xxx-small slds-col">
+                        <lightning-button class="slds-m-top_small" variant="Neutral" type="cancel" name="cancel" onclick={handleCancel} label="Cancel">
+                        </lightning-button>
+                    </div>
+                    <div class="slds-col">
+                        <lightning-button class="slds-m-top_small" variant="brand" type="submit" name="update" label="Save">
+                        </lightning-button>
+                    </div>
+                </div>
+            </div>  
+    </lightning-record-edit-form> 
+                </div>
+            </div>
+        </section>
+        <div class="slds-backdrop slds-backdrop_open"></div>
+    </template>   
+</template>

@@ -1,0 +1,136 @@
+<!--<template>
+    <lightning-card title="Account Statistics" icon-name="utility:chart">
+        <template if:true={dataInitialized}>
+            <c-chart with-one-data="true"  chart-data1={data} chart-type="doughnut" ></c-chart>
+        </template>
+    </lightning-card>
+</template>  
+-->
+<template>
+    <lightning-card>
+       <!-- <div class="slds-form-element">
+            <label class="slds-checkbox_toggle slds-grid">
+              <span class="slds-form-element__label slds-m-bottom_none"></span>
+              <input type="checkbox" onchange={changeChart} name="showChart" value={showChart} aria-describedby="checkbox-toggle-20" />
+              <span id="checkbox-toggle-20" class="slds-checkbox_faux_container" aria-live="assertive">
+                <span class="slds-checkbox_faux"></span>
+                <span class="slds-checkbox_on">Account Target Data</span>
+                <span class="slds-checkbox_off">Account Health Data</span>
+              </span>
+            </label>
+          </div>-->
+
+          
+<!--
+          <div class="slds-grid slds-gutters ">
+            <div class="slds-col slds-size_1-of-2 slds-border_right" style="height: 500px;" >
+              <span>
+                <lightning-card title="Account Statistics" icon-name="utility:chart"></lightning-card>
+                <div>
+                <lightning-input type="toggle" label="" checked={showTargets} name="input1" message-toggle-active="Account Target Data" message-toggle-inactive="Account Health Data"  onchange={changeChart}></lightning-input>
+                  <template if:true ={showChart}>
+                    <c-target_-doughnut_-chart with-one-data={withOneData} chart-labels={chartLabels} chart-data1={data} chart-type="doughnut" background-color={backgroundColor} value-label1=""></c-target_-doughnut_-chart>
+                  </template>
+                </div>
+              </span> 
+            </div>
+              <div class="slds-col slds-size_1-of-2 " style="height: 500px;">
+                <lightning-card title="People's View" icon-name="utility:chart">
+                <span><c-people_-view_-chart ></c-people_-view_-chart></span>
+                </lightning-card>
+              </div>
+          </div>
+
+-->   
+<div class="slds-col slds-size_1-of-6">
+  <lightning-button variant="brand" label="Filter Accounts" onclick={openFilterModal} class="slds-m-left_x-small"></lightning-button>
+</div>
+<div class="slds-grid">
+  <div class="slds-col slds-size_1-of-6">
+    <lightning-combobox value={valueYear} placeholder="Select Year" options={yearList} onchange={yearChange}></lightning-combobox>
+  </div>
+</div>
+<div class="slds-grid slds-wrap ">
+  <div class="slds-col slds-size_1-of-3 " >
+    <lightning-card title="Account Target" icon-name="utility:chart">
+      <template  if:true ={showChart}>
+        <c-chart2 chart-labels={targetChartLabels} chart-data1={targetChartData1} chart-data2={targetChartData2} chart-data3={targetChartData3} chart-type={chartType} value-label1={valueLabel1} value-label2={valueLabel2} value-label3={valueLabel3}></c-chart2>
+      <!-- <c-target_-vertical_-chart with-one-data={withOneData} chart-labels={chartLabels} chart-data1={data} chart-data2={data3} chart-type="bar" background-color={backgroundColor} value-label1=""></c-target_-vertical_-chart> -->
+    </template>
+    </lightning-card> 
+  </div>
+  <div class="slds-col slds-size_1-of-3 slds-border_right slds-border_left" >
+    <lightning-card title="Account Health" icon-name="utility:chart">
+      <template if:true ={showChart2}>
+        <c-target_-doughnut_-chart with-one-data={withOneData} chart-labels={chartLabels2} chart-data1={data2} chart-type="pie" background-color={backgroundColor2} value-label1=""></c-target_-doughnut_-chart>
+      </template>
+    </lightning-card> 
+  </div>
+    <div class="slds-col slds-size_1-of-3 " >
+      <lightning-card title="Account Budget" icon-name="utility:chart">
+        <template if:true ={showChart3}>
+          <c-chart2 chart-labels={targetChartLabels} chart-data1={budgetData} chart-data2={expenseData} chart-type={chartType} value-label1={valueLabel4} value-label2={valueLabel5}></c-chart2>
+          <!-- <c-people_-view_-chart chart-labels={pChartLabels} chart-data1={pChartData1} chart-data2={pChartData2} chart-data3={pChartData3}></c-people_-view_-chart> -->
+        </template>
+        </lightning-card>
+    </div>
+</div>
+<div class="slds-border_top slds-border_bottom">
+  <lightning-card title="Account Owner View" icon-name="utility:chart">
+    <template if:true ={showChart4}>
+      <c-people_-view_-chart chart-labels={pChartLabels} chart-data1={pChartData1} chart-data2={pChartData2} chart-data3={pChartData3}></c-people_-view_-chart >  
+    </template>
+  </lightning-card>    
+</div>
+<div></div>
+<div>
+  <c-account_-list_-view acctdata={acctListData}></c-account_-list_-view>
+</div>
+
+   
+</lightning-card>
+
+
+<template if:true={isModalOpen}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select the Accounts to be Filtered</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+              <lightning-tree-grid
+              class="lgc-example-treegrid"
+              columns={columns}
+              data={treeData}
+              key-field="idString"
+              expanded-rows={expandedRows}
+              onrowselection={setSelectedRows}
+              selected-rows={selectedRows}
+          ></lightning-tree-grid> 
+                <div class="slds-clearfix">
+                    <div class="slds-float_right slds-grid">
+                        <div class="slds-m-right_xxx-small slds-col">
+                            <lightning-button class="slds-m-top_small" variant="brand" type="cancel" name="cancel" onclick={closeModal} label="Cancel">
+                            </lightning-button>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button class="slds-m-top_small" variant="brand" onclick={handleFilterAccounts} type="submit" label="Select">
+                            </lightning-button>
+                        </div>
+                    </div>
+                </div> 
+            </div>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>   
+
+
+</template>

@@ -1,0 +1,36 @@
+<template>
+    <lightning-card title="Account Insights">
+        <template if:true={data}>
+            <template for:each={data} for:item="rec">
+                <div class="slds-m-bottom_small" key={rec.Id}>
+                    <div class="slds-clearfix" >
+                        <div class="slds-float_left slds-m-left_small">
+                            <a onclick={handleNavigate} id={rec.Id}>{rec.Name}</a> : {rec.varasi_am__Recommendation__c}
+                        </div>
+                        <div class="slds-float_right slds-m-right_small">
+                            <lightning-button-menu alternative-text="Show menu" id={rec.Id} icon-size="x-small" menu-alignment="right" variant="border-filled" onselect={handleOnselect}>
+                                <lightning-menu-item value="Dismiss" label="Dismiss"></lightning-menu-item>
+                                <lightning-menu-item value="Resolved" label="Resolved"></lightning-menu-item>
+                            </lightning-button-menu>
+                        </div>
+                    </div>
+                    <div key={rec.Id} class="slds-border_bottom">
+                    </div>
+                </div>
+                
+                
+            </template>
+        </template>
+        
+
+            <!-- <div class=" slds-card slds-card_boundary " key={rec.Id} > -->
+            <!-- <lightning-tile key={rec.Id} label={rec.Name} id={rec.Id} href="#" onclick={handleNavigate}>
+                    <p class="slds-item slds-truncate">{rec.varasi_am__Recommendation__c}</p>
+                     <lightning-button id={rec.Id} class="slds-m-top_small slds-align_absolute-center" variant="brand" name="cancel" onclick={handleDone} label="Done">
+                    </lightning-button>
+                </lightning-tile> -->
+        
+        <lightning-button class="slds-m-top_small slds-align_absolute-center"  variant="brand-outline" name="View All" onclick={navigateToListView} label="View All">
+        </lightning-button>
+    </lightning-card>
+</template>

@@ -1,0 +1,4 @@
+[type=toggle]:checked+.slds-checkbox_faux_container.slds-checkbox_faux
+    {
+        background-color:red; 
+    }

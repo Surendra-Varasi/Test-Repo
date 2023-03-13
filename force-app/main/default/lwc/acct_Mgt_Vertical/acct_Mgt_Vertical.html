@@ -1,0 +1,100 @@
+<template>
+    <!--<div style="width: 320px;">
+        <lightning-vertical-navigation>
+            <lightning-vertical-navigation-section label="Account Management">
+                <lightning-vertical-navigation-item label="Programs" name="Programs">
+                    hcnxkj
+                </lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Business Reviews" name="Reviews">
+                    <c-related_-business_-review></c-related_-business_-review>
+                </lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Account Checklists" name="Checklists">
+                    <c-related_-account_-checklist></c-related_-account_-checklist>
+                </lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Account Health" name="Health">
+                    <c-related_-account_-health></c-related_-account_-health>
+                </lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Account Budget" name="Budget">
+                    <c-account_-budget_-datatable></c-account_-budget_-datatable>
+                </lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Account Expense" name="Expense">
+                    <c-related_-account_-expense></c-related_-account_-expense>
+                </lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Account Relationship" name="Relationship">
+                    <c-related-accnt-relationships></c-related-accnt-relationships>
+                </lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Account Targets" name="Targets">
+                    <c-related_-account_-target></c-related_-account_-target>
+                </lightning-vertical-navigation-item>
+                <lightning-vertical-navigation-item label="Offering Coverage" name="Coverage">
+                    <c-related_-company_-offering></c-related_-company_-offering>
+                </lightning-vertical-navigation-item>
+            </lightning-vertical-navigation-section>
+        </lightning-vertical-navigation>
+    </div>-->
+    
+    <lightning-tabset variant="vertical" active-tab-value="default"> 
+        <!-- <template if:true={health}> -->
+            <lightning-tab label="Account Health" icon-name="utility:feed" value="default">
+                <c-related_-account_-health record-id={recordId} account-health={health} business-review={businessReview} case-comp={caseComp}></c-related_-account_-health>
+            </lightning-tab>
+        <!-- </template> -->
+        <template if:true={accountTeam}>
+            <lightning-tab label="Account Team" icon-name="utility:swarm_request">
+                <c-related-account-team-member record-id={recordId}></c-related-account-team-member>
+            </lightning-tab>
+        </template>
+        <!-- </template> -->
+        <!-- <template if:true={checklist}>
+            <lightning-tab label="Checklists" icon-name="utility:task">
+                <c-related_-account_-checklist record-id={recordId}></c-related_-account_-checklist>
+            </lightning-tab>
+        </template> -->
+        <!-- <template if:true={businessReview}>
+            <lightning-tab label="Business Reviews" icon-name="utility:prompt_edit">
+                <c-related_-business_-review record-id={recordId}></c-related_-business_-review>
+            </lightning-tab>
+        </template> -->
+        <template if:true={program}>
+            <lightning-tab label="Initiatives" icon-name="utility:multi_picklist">
+                <c-related-account-tracks record-id={recordId}></c-related-account-tracks>
+            </lightning-tab>
+        </template>
+        <template if:true={relationship}>
+            <lightning-tab label="Relationships" icon-name="utility:groups" >
+                <span><c-related-accnt-relationships record-id={recordId}></c-related-accnt-relationships></span> 
+            </lightning-tab>
+        </template>
+        <template if:true={expense}>
+            <lightning-tab label="Expenses" icon-name="utility:money">
+                <c-related_-account_-expense record-id={recordId}></c-related_-account_-expense>
+            </lightning-tab>
+        </template>
+        <!-- <template if:true={target}> -->
+        <lightning-tab label="Account Plans" icon-name="utility:target">
+            <c-related_-account_-target record-id={recordId} target={target} goal={goal} budget={budget}></c-related_-account_-target>
+        </lightning-tab>
+        <!-- </template> -->
+        <!-- <template if:true={goal}>
+        <lightning-tab label="Goals" icon-name="utility:price_books">
+            <c-related_-account_-goal record-id={recordId}></c-related_-account_-goal>
+        </lightning-tab>
+        </template>
+        <template if:true={budget}>
+            <lightning-tab label="Budget" icon-name="utility:moneybag">
+                <c-account_-budget_-datatable record-id={recordId}></c-account_-budget_-datatable>
+            </lightning-tab>
+        </template> -->
+        <template if:true={offerings}>
+            <lightning-tab label="Offering Coverage" icon-name="utility:strategy">
+                <c-whitespace_-analysis record-id={recordId}></c-whitespace_-analysis>
+            </lightning-tab>
+        </template>
+        <template if:true={campaign}>
+            <lightning-tab label="Campaigns" icon-name="utility:campaign">
+                <c-account-campaign></c-account-campaign>
+            </lightning-tab>
+        </template>
+        </lightning-tabset>
+   
+</template>

@@ -1,0 +1,80 @@
+<template>
+    <div class=" slds-card slds-card_boundary ">
+        <lightning-card>
+            <!-- <lightning-button-icon  title="Refresh" icon-name="utility:refresh" slot="actions"  onclick={refreshPage}></lightning-button-icon>
+            <lightning-button label="New Health Metric" onclick={newRecHealth} slot="actions"></lightning-button>-->
+            <lightning-tabset>
+                <lightning-tab label="Account Relationship Chart">
+                    <c-relationship_-chart record-id={recordId}></c-relationship_-chart>
+                </lightning-tab>
+                <lightning-tab label="Relationship Detail">
+                    <c-reusable-datatable title="Account Relationship" records={data} columns={cols}
+                        new-record-button={newRecordButton} new-record-label="New Relationship"
+                        refresh-button={refreshButton} actions={actions} onselectedaction={handleActions}
+                        onrefresh={refreshPage} onnewrec={newRec} search-function={searchFunction}
+                        search-fields={searchFields}></c-reusable-datatable>
+                    <!-- <lightning-accordion allow-multiple-sections-open active-section-name={activeSections}>
+                        <template for:each={data} for:item="rec">
+                            <lightning-accordion-section key={rec.Id} name={rec.name} label={rec.name}>
+                                <template if:true={rec.hasOpportunity}>
+                                    <table class="slds-table slds-table_cell-buffer slds-table_bordered">
+                                        <thead>
+                                            <tr class="slds-line-height_reset">
+
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="Opportunity Name">Opportunity Name
+                                                    </div>
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="Role">Role</div>
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="Amount">Amount</div>
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="Close Date">Close Date</div>
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="Expected Revenue">Expected Revenue
+                                                    </div>
+                                                </th>
+                                                <th class="" scope="col">
+                                                    <div class="slds-truncate" title="StageName">StageName</div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <template for:each={rec.opportunityList} for:item="con">
+                                                <tr key={con.Id}>
+                                                    <th scope="col">
+                                                        <div><a id={con.Id}
+                                                                onclick={toNavigate}>{con.Opportunity.Name}</a></div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>{con.Role}</div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>{con.Opportunity.Amount}</div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>{con.Opportunity.CloseDate}</div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>{con.Opportunity.ExpectedRevenue}</div>
+                                                    </th>
+                                                    <th scope="col">
+                                                        <div>{con.Opportunity.StageName}</div>
+                                                    </th>
+                                                </tr>
+                                            </template>
+                                        </tbody>
+                                    </table>
+                                </template>
+                            </lightning-accordion-section>
+                        </template>
+                    </lightning-accordion> -->
+                </lightning-tab>
+            </lightning-tabset>
+        </lightning-card>
+    </div>
+</template>

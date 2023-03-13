@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Account Health Score" icon-name="utility:chart">
+        <!-- <template if:true={valueYear}>
+            <lightning-combobox value={valueYear} label="Select Year" placeholder="Select Year" options={yearList} onchange={yearChange} slot="actions"></lightning-combobox>
+        </template> -->
+        <template if:true={dataInitialized}>
+            <c-chart with-one-data={withOneData} chart-labels={healthChartLabels} chart-data1={healthChartData} chart-type={chartType} value-label1={valueLabel}></c-chart>
+        </template>
+    </lightning-card>
+</template>

@@ -1,0 +1,11 @@
+<template>
+    <lightning-card title="Upload File" icon="custom:custom14">
+        <div class="slds-m-around_medium">
+            <lightning-input type="file" label="Attachment" onchange={onFileUpload}></lightning-input>
+        </div>
+        <template if:true={fileData}>
+            <p>{fileData.filename}</p>
+        </template>
+        <!-- <lightning-button title="Submit" label="submit" variant="brand" class="slds-m-left_x-small" onclick={handleSubmit}></lightning-button> -->
+    </lightning-card>
+</template>

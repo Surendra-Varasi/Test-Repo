@@ -1,0 +1,38 @@
+<template>
+    <lightning-card >
+        <!-- <header slot="title" class="slds-page-header slds-page-header_record-home">
+            <lightning-icon icon-name="standard:channel_program_history" ></lightning-icon>
+            <strong class="slds-m-left--x-small">Configure Internal Account</strong>
+        </header> -->
+        <div class="slds-m-around_small">
+            <template if:true={recordId}>
+                <lightning-record-edit-form record-id={recordId} object-api-name="varasi_am__Conf_Category__c" onsuccess={handleSuccess}>
+                    <lightning-messages>
+                    </lightning-messages>
+                    <lightning-input-field field-name="varasi_am__Internal_Account__c"></lightning-input-field>
+                        <lightning-input-field field-name="Name" value="Internal Account" class="slds-hide"></lightning-input-field>
+                        <lightning-button
+                            class="slds-m-top_small"
+                            type="submit"
+                            label="Set as Internal Account" 
+                            variant="brand">
+                        </lightning-button>
+                </lightning-record-edit-form>
+            </template>
+            <template if:false={recordId}>
+                <lightning-record-edit-form object-api-name="varasi_am__Conf_Category__c" onsuccess={handleSuccess}>
+                    <lightning-messages>
+                    </lightning-messages>
+                    <lightning-input-field field-name="varasi_am__Internal_Account__c"></lightning-input-field>
+                    <lightning-input-field field-name="Name" value="Internal Account" class="slds-hide"></lightning-input-field>	
+                        <lightning-button
+                            class="slds-m-top_small"
+                            type="submit"
+                            label="Set as Internal Account" 
+                            variant="brand">
+                        </lightning-button>
+                </lightning-record-edit-form>
+        </template>
+        </div>
+</lightning-card>
+</template>

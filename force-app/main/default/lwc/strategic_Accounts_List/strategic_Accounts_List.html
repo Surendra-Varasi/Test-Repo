@@ -1,0 +1,200 @@
+<template>
+    <div class="slds-m-bottom_medium">
+        <lightning-card>
+            <h2 slot="title">
+                <lightning-icon icon-name="utility:identity" class="slds-m-top_small"  size="small"></lightning-icon>
+                <strong class="slds-m-left--x-small slds-m-top_small">Internal Account</strong>
+                <lightning-helptext class="slds-m-top_small" content="Select an Account as Internal Account. This account corresponds to your company. Company Employees should be added against this account so that they can be referenced and linked as part of various account maagement activities."></lightning-helptext>
+            </h2>
+            <c-internal-account-configuration></c-internal-account-configuration>
+        </lightning-card>
+    </div>
+    <lightning-card>
+        <h2 slot="title">
+            <lightning-icon icon-name="utility:metrics" class="slds-m-top_small" size="small"></lightning-icon>
+            <strong class="slds-m-left--x-small slds-m-top_small">Strategic Accounts </strong>
+            <lightning-helptext class="slds-m-top_small" content="Select your strategic accounts that you want to manage through the Varasi Account Management App. The accounts selected here show up on the home page for further filtering and drilldown."></lightning-helptext>
+        </h2>
+        <lightning-tabset>
+            <lightning-tab label="Strategic Accounts">
+                <div class="slds-clearfix slds-m-top_small">
+                    <div class="slds-float_right">
+                        <lightning-button class="slds-m-left_x-small" variant="brand-outline" name="addAccounts" onclick={addAccounts} label="Add Accounts"></lightning-button>
+                        <lightning-button class=" slds-p-right_large slds-m-left_x-small" variant="brand-outline" name="removeAccts" onclick={removeAccounts} label="Remove Accounts"></lightning-button>
+                </div>    
+                </div>
+                
+                <div class="slds-grid slds-p-around_medium" >
+                    <div class="slds-col slds-grow-none flex-col" >
+                    <template for:each={strategicAccts1} for:item="item1">
+                        <p key={item1.id} class="slds-p-around_x-small slds-text-align_left  ">{item1}</p>
+                    </template>  
+                    </div>
+                    <div class="slds-col slds-grow-none flex-col" >
+                    <template for:each={strategicAccts2} for:item="item1">
+                        <p key={item1.id} class="slds-p-left_xx-large slds-p-around_x-small slds-text-align_left ">{item1}</p>
+                    </template>  
+                    </div>
+                    <div class="slds-col slds-grow-none flex-col" >
+                    <template for:each={strategicAccts3} for:item="item1">
+                        <p key={item1.id} class="slds-p-left_xx-large slds-p-around_x-small slds-text-align_left ">{item1}</p>
+                    </template>  
+                    </div>
+                </div>
+
+                <div class="slds-clearfix slds-m-top_small">
+                    <div class="slds-float_right slds-p-right_xx-large ">
+                        <template if:true={hasPrev0}>
+                            <lightning-button class="slds-m-left_x-small" variant="base" title="Previous" label="Previous" onclick={onPrev0}>
+                            </lightning-button>
+                        </template>
+                        <template if:true={hasNext0}>
+                            <lightning-button class=" slds-m-left_x-small" variant="base" title="Next" label="Next" onclick={onNext0}>
+                            </lightning-button>
+                        </template>
+                    </div>
+                </div>
+
+                    
+
+                <template if:true={isModalOpen}>
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                                    <lightning-icon icon-name="utility:close"
+                                        alternative-text="close"
+                                        variant="inverse"
+                                        size="small" ></lightning-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Add Strategic Accounts</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                                <lightning-input type="search" value={searchKey} onchange={handleKeywordChange}></lightning-input>
+                                    <lightning-checkbox-group name="Checkbox Group"
+                                                    label="Select Accounts"
+                                                    options={currentPageData}
+                                                    value={contValue}
+                                                    onchange={acctListChange}>
+                                    </lightning-checkbox-group>
+                                    <div class="slds-align_absolute-center">
+                                        <ul class="slds-button-group-row">
+                                        <template if:true={hasPrev}>
+                                            <lightning-button-icon title="Previous" icon-name="utility:jump_to_left" onclick={onPrev}>
+                                            </lightning-button-icon>
+                                        </template>
+                                        <template if:true={hasNext}>
+                                            <lightning-button-icon title="Next" icon-name="utility:jump_to_right" onclick={onNext}>
+                                            </lightning-button-icon>
+                                        </template>
+                                        </ul>
+                                    </div>
+                                    <footer class="slds-modal__footer">
+                                        <div class="slds-clearfix">
+                                            <div class="slds-float_right slds-grid">
+                                                <div class="slds-m-right_xxx-small slds-col">
+                                                    <lightning-button class="slds-m-top_small" variant="brand" type="cancel" name="cancel" onclick={closeModal} label="Cancel">
+                                                    </lightning-button>
+                                                </div>
+                                                <div class="slds-col">
+                                                    <lightning-button class="slds-m-top_small" variant="brand" onclick={handleSaveRecipient} type="submit" label="Select">
+                                                    </lightning-button>
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </footer>
+                            </div>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </template>   
+
+                <template if:true={isModalOpen2}>
+                    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+                        <div class="slds-modal__container">
+                            <header class="slds-modal__header">
+                                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                                    <lightning-icon icon-name="utility:close"
+                                        alternative-text="close"
+                                        variant="inverse"
+                                        size="small" ></lightning-icon>
+                                    <span class="slds-assistive-text">Close</span>
+                                </button>
+                                <h2 id="modal-heading" class="slds-text-heading_medium slds-hyphenate">Remove Strategic Accounts</h2>
+                            </header>
+                            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id">
+                                <lightning-input type="search" value={searchKey2} onchange={handleKeywordChange2}></lightning-input>
+                                    <lightning-checkbox-group name="Checkbox Group"
+                                                    label="Select Accounts to remove them from Strategic Accounts List"
+                                                    options={currentPageData2}
+                                                    value={contValue2}
+                                                    onchange={acctListChange2}>
+                                    </lightning-checkbox-group>
+                                    <div class="slds-align_absolute-center">
+                                        <ul class="slds-button-group-row">
+                                        <template if:true={hasPrev2}>
+                                            <lightning-button-icon title="Previous" icon-name="utility:jump_to_left" onclick={onPrev2}>
+                                            </lightning-button-icon>
+                                        </template>
+                                        <template if:true={hasNext2}>
+                                            <lightning-button-icon title="Next" icon-name="utility:jump_to_right" onclick={onNext2}>
+                                            </lightning-button-icon>
+                                        </template>
+                                        </ul>
+                                    </div>
+                                    <footer class="slds-modal__footer">
+                                        <div class="slds-clearfix">
+                                            <div class="slds-float_right slds-grid">
+                                                <div class="slds-m-right_xxx-small slds-col">
+                                                    <lightning-button class="slds-m-top_small" variant="brand" type="cancel" name="cancel" onclick={closeModal} label="Cancel">
+                                                    </lightning-button>
+                                                </div>
+                                                <div class="slds-col">
+                                                    <lightning-button class="slds-m-top_small" variant="brand" onclick={handleRemoveAccts} type="submit" label="Remove">
+                                                    </lightning-button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </footer> 
+                            </div>
+                        </div>
+                    </section>
+                    <div class="slds-backdrop slds-backdrop_open"></div>
+                </template>
+            </lightning-tab> 
+            <lightning-tab label="Excluded Accounts">
+                <div class="slds-grid slds-p-around_medium" >
+                    <div class="slds-col slds-grow-none flex-col" >
+                    <template for:each={accountsList1} for:item="item1">
+                        <p key={item1.id} class="slds-p-around_x-small slds-text-align_left  ">{item1}</p>
+                    </template>  
+                    </div>
+                    <div class="slds-col slds-grow-none flex-col" >
+                    <template for:each={accountsList2} for:item="item1">
+                        <p key={item1.id} class="slds-p-left_xx-large slds-p-around_x-small slds-text-align_left ">{item1}</p>
+                    </template>  
+                    </div>
+                    <div class="slds-col slds-grow-none flex-col" >
+                    <template for:each={accountsList3} for:item="item1">
+                        <p key={item1.id} class="slds-p-left_xx-large slds-p-around_x-small slds-text-align_left ">{item1}</p>
+                    </template>  
+                    </div>
+                </div>
+
+                <div class="slds-clearfix slds-m-top_small">
+                    <div class="slds-float_right slds-p-right_xx-large ">
+                        <template if:true={hasPrev3}>
+                            <lightning-button class="slds-m-left_x-small" variant="base" title="Previous" label="Previous" onclick={onPrev3}>
+                            </lightning-button>
+                        </template>
+                        <template if:true={hasNext3}>
+                            <lightning-button class=" slds-m-left_x-small" variant="base" title="Next" label="Next" onclick={onNext3}>
+                            </lightning-button>
+                        </template>
+                    </div>
+                </div>
+            </lightning-tab>  
+    </lightning-tabset>
+</lightning-card>
+</template>

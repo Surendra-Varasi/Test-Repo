@@ -1,0 +1,187 @@
+<template>
+    <div class=" slds-card slds-card_boundary ">
+    <lightning-card>
+        <!-- <lightning-button-icon  title="Refresh" icon-name="utility:refresh" slot="actions"  onclick={refreshPage}></lightning-button-icon>
+        <lightning-button label="New Health Metric" onclick={newRecHealth} slot="actions"></lightning-button>-->
+        <template if:true={redStatusFalse}>
+        <lightning-button name='esclateToRed' label="Escalate to Red" onclick={escalteToRed} class='slds-float_right slds-m-bottom_large'></lightning-button>
+        </template>
+        <template if:true={redStatusTrue}>
+            <lightning-button name='Resolve Red Status' label="Resolve Red Status" onclick={resolveRedStatus} class='slds-float_right slds-m-bottom_large'></lightning-button>
+        </template>
+        <lightning-tabset> 
+            <template if:true={accountHealth}>
+                <lightning-tab label="Account Health">
+                    <!-- <c-custom-image-comp
+                            key-field="Id"
+                            data={data}
+                            hide-checkbox-column="true"
+                            columns={cols}>
+                    </c-custom-image-comp> -->
+                    <div class="customAlignment">
+                        <c-reusable-datatable title="Account Health" records={data} columns={cols} new-record-button={newRecordButton}  new-record-label="New Health Metric" refresh-button={refreshButton}
+                        actions={actions} onselectedaction={handleActions} onrefresh={refreshPage} onnewrec={newRecHealth} search-function={searchFunction}
+                        search-fields={searchFields}></c-reusable-datatable>
+                    </div>
+                    <br></br>
+                </lightning-tab>
+            </template>
+            <template if:true={businessReview}>
+                <lightning-tab label="Business Review">
+                    <c-related_-business_-review record-id={recordId}></c-related_-business_-review>
+                </lightning-tab>
+            </template>
+            <template if:true={caseComp}>
+                <lightning-tab label="Cases">
+                    <c-related_-account_-case record-id={recordId}></c-related_-account_-case>
+                </lightning-tab>
+            </template>
+            <template if:true={expNotificationData}>
+                <lightning-tab label="Configure Notification">
+                    <lightning-card>
+                        <template for:each={expNotificationData} for:item="config">
+                            <div class="slds-border_bottom"  key={config.varasi_am__Notification_Type__c}>
+                                <div class="slds-m-bottom_x-small">
+                                    <div class="slds-grid">
+                                        <div class="slds-m-left_small">
+                                            <div class="slds-form-element">
+                                                <lightning-combobox
+                                                    data-id={config.varasi_am__Sequence__c}
+                                                    name="notificationType"
+                                                    value={config.varasi_am__Notification_Type__c}
+                                                    label="Notification type"
+                                                    placeholder="Select Type"
+                                                    options={typeOptions}
+                                                    disabled>
+                                                </lightning-combobox>
+                                            </div>
+                                        </div>
+                                        <div class="slds-m-left_small">
+                                            <!-- <lightning-record-edit-form class="varasi_am__Notification__c">
+                                                <lightning-input-field field-name="varasi_am__Operator__c" value={config.varasi_am__Operator__c}></lightning-input-field>
+                                            </lightning-record-edit-form> -->
+                                            <lightning-combobox
+                                                data-id={config.varasi_am__Sequence__c}
+                                                name="operator"
+                                                value={config.varasi_am__Operator__c}
+                                                label="Operator"
+                                                placeholder="Select Operator"
+                                                options={operator}
+                                                onchange={operatorChange}>
+                                            </lightning-combobox>
+                                        </div>
+                                        <div class="slds-m-left_small">
+                                            <!-- <label for={config.varasi_am__Notification_Type__c}>Value</label> -->
+                                            <lightning-input data-id={config.varasi_am__Sequence__c} label="Value" type="number" onchange={criteriaChange} value={config.varasi_am__Criteria_Value__c}></lightning-input>
+                                            <!-- <lightning-input data-id={config.varasi_am__Sequence__c} onchange={criteriaChange} type="number" label="Value" value={config.varasi_am__Criteria_Value__c}></lightning-input> -->
+                                        </div>
+                                        <!-- <div class="slds-m-top_large slds-m-left_small">
+                                            <span>%</span>
+                                        </div> -->
+                                        <div class="slds-m-left_small">
+                                            <label for="nt" class="slds-p-bottom_xx-small slds-p-top_small slds-text-body_small">Post to Chatter</label>
+                                            <lightning-input  type="checkbox"   checked={config.varasi_am__Chatter_Feed__c} onchange={changeChatter} data-id={config.varasi_am__Sequence__c} ></lightning-input>
+                                        </div>
+                                        <div class="slds-m-left_small">
+                                            <label for="nt" class="slds-p-bottom_xx-small slds-p-top_small slds-text-body_small">Notify Account Team</label>
+                                            <lightning-input  type="checkbox"   checked={config.varasi_am__To_Team_Member__c} onchange={changeToTeam} data-id={config.varasi_am__Sequence__c} ></lightning-input>
+                                        </div>
+                                        <div class="slds-m-left_small">
+                                            <lightning-button label="More Recipients" value={config} onclick={handleRecipient} ></lightning-button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </template>
+                        </br>
+                        <div class="slds-modal__footer">
+                            <lightning-button variant="brand" label="Save" title="Save Notification Criteria" onclick={handleSave} class="slds-m-left_x-small"></lightning-button>
+                        </div>
+                    </lightning-card>
+                </lightning-tab>
+            </template>
+        </lightning-tabset>
+       <!-- <lightning-datatable data={data} columns={cols} key-field="Id"></lightning-datatable>-->
+    </lightning-card>
+</div>
+<template if:true={isModalOpen}>
+    <section role="dialog" tabindex="-1" aria-labelledby="modal-heading-01" aria-modal="true" aria-describedby="modal-content-id-1" class="slds-modal slds-fade-in-open">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <button class="slds-button slds-button_icon slds-modal__close slds-button_icon-inverse" title="Close" onclick={closeModal}>
+                    <lightning-icon icon-name="utility:close"
+                        alternative-text="close"
+                        variant="inverse"
+                        size="small" ></lightning-icon>
+                    <span class="slds-assistive-text">Close</span>
+                </button>
+                <h2 id="modal-heading-01" class="slds-text-heading_medium slds-hyphenate">Select Recipients</h2>
+            </header>
+            <div class="slds-modal__content slds-p-around_medium" id="modal-content-id-1">
+                <lightning-input type="search" value={searchKey} onchange={handleKeywordChange}></lightning-input>
+                    <lightning-checkbox-group name="Checkbox Group"
+                                    label="Select Recipients"
+                                    options={currentPageData}
+                                    value={contValue}
+                                    onchange={recipientsChange}>
+                    </lightning-checkbox-group>
+                    <div class="slds-align_absolute-center">
+                        <ul class="slds-button-group-row">
+                           <template if:true={hasPrev}>
+                              <lightning-button-icon title="Previous" icon-name="utility:jump_to_left" onclick={onPrev}>
+                              </lightning-button-icon>
+                           </template>
+                           <template if:true={hasNext}>
+                              <lightning-button-icon title="Next" icon-name="utility:jump_to_right" onclick={onNext}>
+                              </lightning-button-icon>
+                           </template>
+                        </ul>
+                     </div>
+                    </div>
+                <footer class="slds-modal__footer">
+                <div class="slds-clearfix">
+                    <div class="slds-float_right slds-grid">
+                        <div class="slds-m-right_xxx-small slds-col">
+                            <lightning-button class="slds-m-top_small" variant="brand" type="cancel" name="cancel" onclick={handleCancel} label="Cancel">
+                            </lightning-button>
+                        </div>
+                        <div class="slds-col">
+                            <lightning-button class="slds-m-top_small" variant="brand" onclick={handleSaveRecipient} type="submit" label="Select">
+                            </lightning-button>
+                        </div>
+                    </div>
+                </div> 
+            </footer>
+        </div>
+    </section>
+    <div class="slds-backdrop slds-backdrop_open"></div>
+</template>   
+
+<!-- Confirmation Dialog -->
+<template if:true={modalVisible}>
+    <div role="dialog" class="slds-modal slds-fade-in-open ">
+        <div class="slds-modal__container">
+            <header class="slds-modal__header">
+                <h1 class="slds-text-heading--medium">Confirmation</h1>
+            </header>
+                <div class="slds-modal__content slds-p-around_medium">
+                    <p>Are you sure you want to escalate Account to <b class='slds-text-color_destructive'>Red Status</b>?</p>
+                </div>
+            <footer class="slds-modal__footer">
+                <lightning-button variant="neutral"
+                                        name="cancel"
+                                        label='Cancel'
+                                        title='cancel'
+                                        onclick={handleClick} ></lightning-button>
+                    <lightning-button variant="brand"
+                                        name="confirm"
+                                        label='Confirm'
+                                        title='confirm'
+                                        onclick={handleClick} 
+                                        class='slds-m-left_x-small'></lightning-button>
+            </footer>
+        </div>
+    </div>
+    <div class="slds-backdrop slds-backdrop--open"></div>            
+</template>
+</template>

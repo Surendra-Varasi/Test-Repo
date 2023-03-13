@@ -1,0 +1,16 @@
+table>thead .slds-th__action{
+    justify-content: center !important
+  } 
+
+.alignRight{
+    text-align: right;
+}
+.alignCenter{
+text-align: center;
+}
+.alignLeft{
+    text-align: left;
+}
+.chartComp{
+    height:23em;
+}

@@ -1,0 +1,16 @@
+<template>
+    <lightning-card title="Configure Notifications">
+        <div class="slds-p-around_medium">
+            <lightning-combobox
+                    name="categType"
+                    value={value}
+                    label="Set Notification for "
+                    placeholder="Select . . ."
+                    options={categValues}
+                    onchange={handleChange}
+                    required=False
+                    >
+            </lightning-combobox>
+    </div>
+    </lightning-card>
+</template>

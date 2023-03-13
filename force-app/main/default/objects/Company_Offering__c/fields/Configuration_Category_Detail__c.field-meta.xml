@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CustomField xmlns="http://soap.sforce.com/2006/04/metadata">
+    <fullName>Configuration_Category_Detail__c</fullName>
+    <deleteConstraint>SetNull</deleteConstraint>
+    <deprecated>false</deprecated>
+    <externalId>false</externalId>
+    <label>Configuration Category Detail</label>
+    <referenceTo>Configuration_Category_Detail__c</referenceTo>
+    <relationshipLabel>Company Offerings</relationshipLabel>
+    <relationshipName>Company_Offerings</relationshipName>
+    <required>false</required>
+    <trackTrending>false</trackTrending>
+    <type>Lookup</type>
+</CustomField>

@@ -1,0 +1,8 @@
+<template>
+    <lightning-card title="Target Vs Achieved" icon-name="utility:chart">
+        <!-- <lightning-combobox value={valueYear} label="Select Year" placeholder="Select Year" options={yearList} onchange={yearChange} slot="actions"></lightning-combobox> -->
+        <template if:true={dataInitialized} >
+            <c-chart2 chart-labels={targetChartLabels} chart-data1={targetChartData1} chart-data2={targetChartData2} chart-data3={targetChartData3} chart-type={chartType} value-label1={valueLabel1} value-label2={valueLabel2} value-label3={valueLabel3}></c-chart2>
+        </template>
+    </lightning-card>
+</template>
